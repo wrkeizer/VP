@@ -1,6 +1,6 @@
 /**
  * 
- * @author Floris Golbach &amp; Wisse Keizer
+ * @author Floris Golbach & Wisse Keizer
  * 
  * @elementen 
  * 	Eén character
