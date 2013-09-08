@@ -22,7 +22,7 @@
  *		Identifier-object is een kopie van src.
  *	    </dl>
  **/
-public interface GetalStackInterface {
+public interface IdentifierInterface {
     
     
     /** Initialiseert het Identifier object tot een lege identifier.
