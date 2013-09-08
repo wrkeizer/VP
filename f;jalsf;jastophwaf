@@ -1,0 +1,176 @@
+[33mcommit 663899762279705d7494b4a06581aa0d4ab47bdd[m
+Author: unknown <floris.golbach@nubisonline.nl>
+Date:   Sun Sep 8 14:51:11 2013 +0200
+
+    Edited VerzamelingInterface
+
+[1mdiff --git a/Assignment1/AlfanumeriekInterface.java b/Assignment1/AlfanumeriekInterface.java[m
+[1mindex 1557e37..d6a8cdc 100644[m
+[1m--- a/Assignment1/AlfanumeriekInterface.java[m
+[1m+++ b/Assignment1/AlfanumeriekInterface.java[m
+[36m@@ -1,10 +1,10 @@[m
+ /**[m
+[31m- * [m
+[31m- * @author Floris Golbach &amp; Wisse Keizer[m
+[31m- * [m
+[31m- * @elementen [m
+[31m- * 	Eén character[m
+[31m- * @structuur	[m
+[32m+[m[32m *[m
+[32m+[m[32m * @author Floris Golbach & Wisse Keizer[m
+[32m+[m[32m *[m
+[32m+[m[32m * @elementen[m
+[32m+[m[32m * 	Een character[m
+[32m+[m[32m * @structuur[m
+  * 	0-Dimensionaal[m
+  * @domein[m
+  * 	(Hoofd)letters en cijfers[m
+[36m@@ -16,6 +16,7 @@[m
+  * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een alfanumeriek character.[m
+  * 		</dl>[m
+  * [m
+[32m+[m[32m *[m
+  *  Alfanumeriek(Alfanumeriek src);[m
+  * 		<dl>[m
+  * 		<dt><b>PRE:</b><dd> -[m
+
+[33mcommit 4a10b3de8b00828b7dee26a2ad59b3ed4cccfdf3[m
+Author: unknown <floris.golbach@nubisonline.nl>
+Date:   Sat Sep 7 22:43:12 2013 +0200
+
+    Deleted double interface
+
+[1mdiff --git a/Assignment1/AlfanumeriekInterface.java b/Assignment1/AlfanumeriekInterface.java[m
+[1mindex 8f78d10..1557e37 100644[m
+[1m--- a/Assignment1/AlfanumeriekInterface.java[m
+[1m+++ b/Assignment1/AlfanumeriekInterface.java[m
+[36m@@ -40,48 +40,4 @@[m [mpublic interface AlfanumeriekInterface {[m
+      **/[m
+     boolean isLetter ();[m
+ 	[m
+[31m-}[m
+[31m-=======[m
+[31m-/**[m
+[31m- * [m
+[31m- * @author Floris Golbach & Wisse Keizer[m
+[31m- * [m
+[31m- * @elementen [m
+[31m- * 	Eén character[m
+[31m- * @structuur	[m
+[31m- * 	0-Dimensionaal[m
+[31m- * @domein[m
+[31m- * 	(Hoofd)letters en cijfers[m
+[31m- *[m
+[31m- * @constructor[m
+[31m- * 	Alfanumeriek(char c);[m
+[31m- * 		<dl>[m
+[31m- * 		<dt><b>PRE:</b><dd> Het character is alfanumeriek.[m
+[31m- * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een alfanumeriek character.[m
+[31m- * 		</dl>[m
+[31m- * [m
+[31m- *  Alfanumeriek(Alfanumeriek src);[m
+[31m- * 		<dl>[m
+[31m- * 		<dt><b>PRE:</b><dd> -[m
+[31m- * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een kopie van het src-object.[m
+[31m- * 		</dl>[m
+[31m- */[m
+[31m-public interface AlfanumeriekInterface {[m
+[31m-    /** Retourneert het character.[m
+[31m-     * @preconditie[m
+[31m-     *	    -[m
+[31m-     * @postconditie[m
+[31m-     *	    Het character is geretourneerd.[m
+[31m-     **/[m
+[31m-	char value();[m
+[31m-	[m
+[31m-	/** Retourneert of het character een letter of getal is.[m
+[31m-     * @preconditie[m
+[31m-     *	    -[m
+[31m-     * @postconditie[m
+[31m-     *	    true: het character is een letter.<br>[m
+[31m-     *	    false: het character is een getal.[m
+[31m-     **/[m
+[31m-    boolean isLetter ();[m
+[31m-	[m
+[31m-}[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+
+[33mcommit 9ee188a9edb9f9d9f2968704fb7207c14feecc1b[m
+Author: wrkeizer <wisse@wisses-macbook-air.fritz.box>
+Date:   Sat Sep 7 18:02:49 2013 +0200
+
+    Redundancy weggehaald
+
+[1mdiff --git a/Assignment1/AlfanumeriekInterface.java b/Assignment1/AlfanumeriekInterface.java[m
+[1mindex 8f78d10..71069b4 100644[m
+[1m--- a/Assignment1/AlfanumeriekInterface.java[m
+[1m+++ b/Assignment1/AlfanumeriekInterface.java[m
+[36m@@ -1,54 +1,10 @@[m
+ /**[m
+[31m- * [m
+[31m- * @author Floris Golbach &amp; Wisse Keizer[m
+[31m- * [m
+[31m- * @elementen [m
+[31m- * 	Eén character[m
+[31m- * @structuur	[m
+[31m- * 	0-Dimensionaal[m
+[31m- * @domein[m
+[31m- * 	(Hoofd)letters en cijfers[m
+  *[m
+[31m- * @constructor[m
+[31m- * 	Alfanumeriek(char c);[m
+[31m- * 		<dl>[m
+[31m- * 		<dt><b>PRE:</b><dd> Het character is alfanumeriek.[m
+[31m- * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een alfanumeriek character.[m
+[31m- * 		</dl>[m
+[31m- * [m
+[31m- *  Alfanumeriek(Alfanumeriek src);[m
+[31m- * 		<dl>[m
+[31m- * 		<dt><b>PRE:</b><dd> -[m
+[31m- * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een kopie van het src-object.[m
+[31m- * 		</dl>[m
+[31m- */[m
+[31m-public interface AlfanumeriekInterface {[m
+[31m-    /** Retourneert het character.[m
+[31m-     * @preconditie[m
+[31m-     *	    -[m
+[31m-     * @postconditie[m
+[31m-     *	    Het character is geretourneerd.[m
+[31m-     **/[m
+[31m-	char value();[m
+[31m-	[m
+[31m-	/** Retourneert of het character een letter of getal is.[m
+[31m-     * @preconditie[m
+[31m-     *	    -[m
+[31m-     * @postconditie[m
+[31m-     *	    true: het character is een letter.<br>[m
+[31m-     *	    false: het character is een getal.[m
+[31m-     **/[m
+[31m-    boolean isLetter ();[m
+[31m-	[m
+[31m-}[m
+[31m-=======[m
+[31m-/**[m
+[31m- * [m
+  * @author Floris Golbach & Wisse Keizer[m
+[31m- * [m
+[31m- * @elementen [m
+[31m- * 	Eén character[m
+[31m- * @structuur	[m
+[32m+[m[32m *[m
+[32m+[m[32m * @elementen[m
+[32m+[m[32m * 	Een character[m
+[32m+[m[32m * @structuur[m
+  * 	0-Dimensionaal[m
+  * @domein[m
+  * 	(Hoofd)letters en cijfers[m
+[36m@@ -59,7 +15,7 @@[m [mpublic interface AlfanumeriekInterface {[m
+  * 		<dt><b>PRE:</b><dd> Het character is alfanumeriek.[m
+  * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een alfanumeriek character.[m
+  * 		</dl>[m
+[31m- * [m
+[32m+[m[32m *[m
+  *  Alfanumeriek(Alfanumeriek src);[m
+  * 		<dl>[m
+  * 		<dt><b>PRE:</b><dd> -[m
