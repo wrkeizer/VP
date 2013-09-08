@@ -25,7 +25,7 @@
 public interface GetalStackInterface {
     
     
-    /** Initialiseert het Identiefer object tot de lege stack.
+    /** Initialiseert het Identifier object tot een lege identifier.
      * @preconditie
      *	    -
      * @postconditie

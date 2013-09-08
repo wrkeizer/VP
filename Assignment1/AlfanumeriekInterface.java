@@ -1,10 +1,10 @@
 /**
- * 
- * @author Floris Golbach &amp; Wisse Keizer
- * 
- * @elementen 
- * 	Eén character
- * @structuur	
+ *
+ * @author Floris Golbach & Wisse Keizer
+ *
+ * @elementen
+ * 	Een character
+ * @structuur
  * 	0-Dimensionaal
  * @domein
  * 	(Hoofd)letters en cijfers
@@ -16,6 +16,7 @@
  * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een alfanumeriek character.
  * 		</dl>
  * 
+ *
  *  Alfanumeriek(Alfanumeriek src);
  * 		<dl>
  * 		<dt><b>PRE:</b><dd> -
