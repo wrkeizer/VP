@@ -1,0 +1,11 @@
+Plan van aanpak:
+
+-Creëer een interface tussen gebruiker en console waarin de juiste input ingevoerd kan worden
+-Kijk of de input op juiste wijze is ingevoerd
+-Controleer of de juiste input is ingevuld
+-Voor de 2 bovenstaande punten: Zo nee, korte en duidelijke errormelding geven en opnieuw proberen tot het lukt
+-Zo ja, maak van alle characters een Alfanumeriek object
+-Voeg alle Alfanumerieke characters samen in de Identifiers en Verzamelingen
+-Ga met die Verzameling objecten de vier operaties uitvoeren
+-Print de correcte output
+-Neem een koud biertje ;)
