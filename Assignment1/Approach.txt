@@ -1,6 +1,6 @@
 Plan van aanpak:
 
--Creëer een interface tussen gebruiker en console waarin de juiste input ingevoerd kan worden
+-Cre‘er een interface tussen gebruiker en console waarin de juiste input ingevoerd kan worden
 -Kijk of de input op juiste wijze is ingevoerd
 -Controleer of de juiste input is ingevuld
 -Voor de 2 bovenstaande punten: Zo nee, korte en duidelijke errormelding geven en opnieuw proberen tot het lukt

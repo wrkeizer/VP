@@ -50,6 +50,7 @@ public interface IdentifierInterface {
     **/
     StringBuffer getName();
     
+    //todo?
     //void setName(StringBuffer s);
     //void addString(StringBuffer s);
     //int getSize();

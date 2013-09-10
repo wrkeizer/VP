@@ -1,13 +1,13 @@
-/**
+/** ADT voor de class Verzameling.
  *
  * @author Floris Golbach & Wisse Keizer
  *
  * @elementen
- * 	Een verzameling van Identifiers
+ * 	Een verzameling objecten van het type Identifier
  * @structuur
- * 	Linear
+ * 	Geen
  * @domein
- * 	0 Tot 10 elementen
+ * 	0 Tot 20 elementen
  *
  * @constructor
  * 	Verzameling();
@@ -15,17 +15,16 @@
  * 		<dt><b>PRE:</b><dd> -
  * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een lege verzameling.
  * 		</dl>
- * 
- *
+ *  <br>
  *  Verzameling(Verzameling src);
  * 		<dl>
  * 		<dt><b>PRE:</b><dd> -
- * 		<dt><b>POST:</b><dd> De inhoud van het nieuwe object is een kopie van het src-object.
+ * 		<dt><b>POST:</b><dd> Het nieuwe Verzameling-object bevat een kopie van de inhoud van src.
  * 		</dl>
- */
+ **/
  public interface VerzamelingInterface{
 	
-	/** Initialiseert het IdentifierStack object tot de lege verzameling.
+	/** Initialiseert het Verzameling object tot de lege verzameling.
      * @preconditie
      *	    -
      * @postconditie
@@ -35,20 +34,20 @@
 	
 	/** Voegt een Identifier aan de verzameling toe.
      * @preconditie
-     *	    -
+     *	    Geen element in de verzameling is gelijk aan id.
      * @postconditie
-     *	    Een kopie van element is als laatste element aan de verzameling toegevoegd.
+     *	    Aan de verzameling is een kopie van id toegevoegd.
      **/
-    void push (Identifier element);
+    void addElement(Identifier id);
 
 
     /** Verwijdert een Identifier uit de verzameling.
      * @preconditie
-     *	    De verzameling is niet leeg.
+     *	    De verzameling is niet leeg en er is een element in de verzameling gelijk aan id.
      * @postconditie
-     *	    Het laatste element van de verzameling-PRE is geretourneerd en verwijderd.
+     *	    Uit de verzameling is het element dat gelijk is aan id verwijderd.
      **/
-    Identifier pop ();
+    void removeElement(Identifier id);
 
 
     /** Retourneert het laatste element van de verzameling.
