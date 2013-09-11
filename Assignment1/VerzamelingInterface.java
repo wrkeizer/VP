@@ -1,3 +1,5 @@
+package assignment1;
+
 /** ADT voor de class Verzameling.
  *
  * @author Floris Golbach & Wisse Keizer
@@ -59,16 +61,6 @@
     Identifier top ();
 
 
-    /** Retourneert of de verzameling leeg is.
-     * @preconditie
-     *	    -
-     * @postconditie
-     *	    true: het aantal elementen op de verzameling == 0.<br>
-     *	    false: het aantal elementen op de verzameling &gt; 0.
-     **/
-    boolean isEmpty ();
-
-
     /** Retourneert het aantal elementen van de verzameling.
      * @preconditie
      *	    -
@@ -76,4 +68,40 @@
      *	    Het aantal elementen van de verzameling is geretourneerd.
      **/
     int size ();
+    
+    
+    /** Retourneert een nieuwe Verzameling met daarin het verschil van de meegegeven Verzamelingen.
+     * @preconditie
+     *	    -
+     * @postconditie
+     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die wel in a maar niet in b zitten.
+     **/     
+    Verzameling verschil(Verzameling a, Verzameling b);
+    
+    
+    /** Retourneert een nieuwe Verzameling met daarin de doorsnede van de meegegeven Verzamelingen.
+     * @preconditie
+     *	    -
+     * @postconditie
+     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die in a of b zitten.
+     **/     
+    Verzameling doorsnede(Verzameling a, Verzameling b);
+    
+    
+    /** Retourneert een nieuwe Verzameling met daarin het verschil van de meegegeven Verzamelingen.
+     * @preconditie
+     *	    -
+     * @postconditie
+     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die zowel in a als b zitten.
+     **/
+    Verzameling vereniging(Verzameling a, Verzameling b);
+    
+    
+    /** Retourneert een nieuwe Verzameling met daarin het verschil van de meegegeven Verzamelingen.
+     * @preconditie
+     *	    -
+     * @postconditie
+     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die wel in een van beide Verzamelingen zitten, maar niet in allebei.
+     **/     
+    Verzameling symnetrischVerschil(Verzameling a, Verzameling b);
 }

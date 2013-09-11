@@ -1,3 +1,5 @@
+package assignment1;
+
 /** ADT voor de class Identifier.
  *
  * @author Floris Golbach & Wisse Keizer
