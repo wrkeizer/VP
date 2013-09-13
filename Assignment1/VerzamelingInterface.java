@@ -56,9 +56,9 @@ package assignment1;
      * @preconditie
      *	    De verzameling is niet leeg.
      * @postconditie
-     *	    Een kopie van het laatste element van de verzameling-PRE is geretourneerd.
+     *	    Een kopie van een van de elementen van de verzameling-PRE is geretourneerd.
      **/
-    Identifier top ();
+    Identifier someElement();
 
 
     /** Retourneert het aantal elementen van de verzameling.
