@@ -5,11 +5,11 @@ package assignment1;
  * @author Floris Golbach & Wisse Keizer
  *
  * @elementen
- * 	Een verzameling objecten van het type Identifier
+ * 	objecten van het type Identifier
  * @structuur
  * 	Geen
  * @domein
- * 	0 Tot 20 elementen
+ * 	0 Tot 20 identifiers
  *
  * @constructor
  * 	Verzameling();
@@ -21,7 +21,7 @@ package assignment1;
  *  Verzameling(Verzameling src);
  * 		<dl>
  * 		<dt><b>PRE:</b><dd> -
- * 		<dt><b>POST:</b><dd> Het nieuwe Verzameling-object bevat een kopie van de inhoud van src.
+ * 		<dt><b>POST:</b><dd> Het nieuw gemaakte Verzameling-object bevat een kopie van de inhoud van src.
  * 		</dl>
  **/
  public interface VerzamelingInterface{
@@ -36,27 +36,27 @@ package assignment1;
 	
 	/** Voegt een Identifier aan de verzameling toe.
      * @preconditie
-     *	    Geen element in de verzameling is gelijk aan id.
+     *	    -
      * @postconditie
-     *	    Aan de verzameling is een kopie van id toegevoegd.
+     *	    In de verzameling zit een identifier met dezelfde inhoud als id.
      **/
     void addElement(Identifier id);
 
 
     /** Verwijdert een Identifier uit de verzameling.
      * @preconditie
-     *	    De verzameling is niet leeg en er is een element in de verzameling gelijk aan id.
+     *	    -
      * @postconditie
-     *	    Uit de verzameling is het element dat gelijk is aan id verwijderd.
+     *	    In de verzameling zit geen element met dezelfde inhoud als id.
      **/
     void removeElement(Identifier id);
 
 
-    /** Retourneert het laatste element van de verzameling.
+    /** Retourneert een element van de verzameling.
      * @preconditie
      *	    De verzameling is niet leeg.
      * @postconditie
-     *	    Een kopie van een van de elementen van de verzameling-PRE is geretourneerd.
+     *	    Een kopie van een van de elementen van de verzameling is geretourneerd.
      **/
     Identifier someElement();
 
@@ -67,41 +67,45 @@ package assignment1;
      * @postconditie
      *	    Het aantal elementen van de verzameling is geretourneerd.
      **/
-    int size ();
+    int size();
     
     
-    /** Retourneert een nieuwe Verzameling met daarin het verschil van de meegegeven Verzamelingen.
+    /** Retourneert een nieuwe Verzameling met daarin het verschil van de eigen en de meegegeven verzameling.
      * @preconditie
      *	    -
      * @postconditie
-     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die wel in a maar niet in b zitten.
+     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die wel in de eigen verzameling, maar niet in v zitten.
      **/     
-    Verzameling verschil(Verzameling a, Verzameling b);
+    Verzameling verschil(Verzameling v);
     
     
-    /** Retourneert een nieuwe Verzameling met daarin de doorsnede van de meegegeven Verzamelingen.
+    /** Retourneert een nieuwe Verzameling met daarin de doorsnede van de eigen en de meegegeven verzameling.
      * @preconditie
      *	    -
      * @postconditie
-     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die in a of b zitten.
+     * 		De nieuwe Verzameling bevat een kopie van alle Identifiers die zowel in de eigen verzameling als in v zitten.
      **/     
-    Verzameling doorsnede(Verzameling a, Verzameling b);
+    Verzameling doorsnede(Verzameling v);
     
     
-    /** Retourneert een nieuwe Verzameling met daarin het verschil van de meegegeven Verzamelingen.
+    /** Retourneert een nieuwe Verzameling met daarin het vereniging van de eigen en de meegegeven verzameling.
      * @preconditie
      *	    -
      * @postconditie
-     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die zowel in a als b zitten.
+     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die in de eigen verzameling of in v zitten.
+     * @exception
+     * 		Als de vereniging meer dan 20 elemten bevat.
      **/
-    Verzameling vereniging(Verzameling a, Verzameling b);
+    Verzameling vereniging(Verzameling v) throws Exception;
     
     
-    /** Retourneert een nieuwe Verzameling met daarin het verschil van de meegegeven Verzamelingen.
+    /** Retourneert een nieuwe Verzameling met daarin het symmetrisch verschil van de eigen en de meegegeven verzameling.
      * @preconditie
      *	    -
      * @postconditie
-     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die wel in een van beide Verzamelingen zitten, maar niet in allebei.
-     **/     
-    Verzameling symnetrischVerschil(Verzameling a, Verzameling b);
+     *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die in de eigen verzameling of in v ziten, maar niet in allebei.
+     * @exception
+     * 		Als het symmetrisch verschil meer dan 20 elemten bevat.
+     **/    
+    Verzameling symmetrischVerschil(Verzameling v) throws Exception;
 }
