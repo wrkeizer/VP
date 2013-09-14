@@ -15,11 +15,11 @@ public class Verzameling implements VerzamelingInterface{
 	public Verzameling(Verzameling src) {
 		identifiers = new Identifier[MAX_AANTAL_ELEMENTEN];
 		Verzameling clone = src.clone();
-		size = clone.getSize();
-		for (int i = 0; i < size; i++) {
-			identifiers[i] = new Identifier(clone.someElement());
-			clone.removeElement(identifiers[i]);
+		for (int size = 0; clone.getSize() > 0; size++) {
+			identifiers[size] = new Identifier(clone.someElement());
+			clone.removeElement(identifiers[size]);
 		}
+		assert (size == src.getSize());
 	}
 	
 	public Verzameling clone() {
@@ -66,7 +66,14 @@ public class Verzameling implements VerzamelingInterface{
     }
 
     public Verzameling verschil(Verzameling v) {
-    	
+    	Verzameling verschil = this.clone();
+    	Verzameling clone = v.clone();
+    	while (clone.getSize() > 0) {
+    		Identifier id = clone.someElement();
+    		verschil.removeElement(id);
+    		clone.removeElement(id);
+    	}
+    	return verschil;
     }
     
     public Verzameling doorsnede(Verzameling v) {
