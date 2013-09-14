@@ -2,7 +2,7 @@ package assignment1;
 
 public class Identifier implements IdentifierInterface{
 	
-	StringBuffer name;
+	private StringBuffer name;
 	
 	public Identifier() {
 		name = new StringBuffer();

@@ -3,12 +3,14 @@ package assignment1;
 /** ADT voor de class Ifentidier.
  *
  * @author Floris Golbach & Wisse Keizer
+ * 
  * @elementen
  *  characters van het type char
  * @structuur
  *	lineair
  * @domein
  *	alle reeksen van alfanumerieke characters met minstens één character en beginnende met een letter
+ *
  * @constructor
  *	Identifier();
  *	    <dl>
