@@ -25,7 +25,7 @@ public class Verzameling implements VerzamelingInterface{
 	public Verzameling clone() {
 		Verzameling clone = new Verzameling();
 		for (int i = 0; i < size; i++) {
-			clone.addElement(new Identifier(identifiers[i]));
+			clone.addElement(new Identifier(identifiers[i])); //exception?
 		}
 		return clone;
 	}
@@ -34,12 +34,12 @@ public class Verzameling implements VerzamelingInterface{
 		size = 0;
 	}
 
-    public void addElement(Identifier id) {
+    public void addElement(Identifier id) { //throws exception?
     	for (int i = 0; i < size; i++) {
     		if (identifiers[i].equals(id)) {
     			return;
     		}
-    	}
+    	}//exception
     	identifiers[size] = id;
     	size += 1;
     }
@@ -86,7 +86,7 @@ public class Verzameling implements VerzamelingInterface{
     	Verzameling opteller = v.clone();
     	while (opteller.getSize() > 0) {
     		Identifier id = opteller.someElement();
-    		vereniging.addElement(id);
+    		vereniging.addElement(id); //exception
     		opteller.removeElement(id);
     	}
     	return vereniging;
@@ -95,7 +95,7 @@ public class Verzameling implements VerzamelingInterface{
     public Verzameling symmetrischVerschil(Verzameling v) throws Exception {
     	Verzameling verschil1 = verschil(v);
     	Verzameling verschil2 = v.verschil(this);
-    	return verschil1.vereniging(verschil2);
+    	return verschil1.vereniging(verschil2); //exception
     }
     
 }

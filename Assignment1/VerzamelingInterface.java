@@ -9,7 +9,7 @@ package assignment1;
  * @structuur
  * 	Geen
  * @domein
- * 	0 Tot 20 identifiers
+ * 	0 Tot 20 identifiers met elk een verschillende inhoud
  *
  * @constructor
  * 	Verzameling();
@@ -42,7 +42,7 @@ package assignment1;
      * @exception
      * 		als de nieuwe verzameling meer dan 20 elementen bevat.
      **/
-    void addElement(Identifier id) throws Exception;
+    void addElement(Identifier id) throws Exception; //Of niet?
 
 
     /** Verwijdert een Identifier uit de verzameling.
