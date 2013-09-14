@@ -67,25 +67,35 @@ public class Verzameling implements VerzamelingInterface{
 
     public Verzameling verschil(Verzameling v) {
     	Verzameling verschil = this.clone();
-    	Verzameling clone = v.clone();
-    	while (clone.getSize() > 0) {
-    		Identifier id = clone.someElement();
+    	Verzameling aftrekker = v.clone();
+    	while (aftrekker.getSize() > 0) {
+    		Identifier id = aftrekker.someElement();
     		verschil.removeElement(id);
-    		clone.removeElement(id);
+    		aftrekker.removeElement(id);
     	}
     	return verschil;
     }
     
     public Verzameling doorsnede(Verzameling v) {
-    	
+    	Verzameling verschil = verschil(v);
+    	return verschil(verschil);
     }
     
     public Verzameling vereniging(Verzameling v) throws Exception {
-    	
+    	Verzameling vereniging = this.clone();
+    	Verzameling opteller = v.clone();
+    	while (opteller.getSize() > 0) {
+    		Identifier id = opteller.someElement();
+    		vereniging.addElement(id);
+    		opteller.removeElement(id);
+    	}
+    	return vereniging;
     }
     
     public Verzameling symmetrischVerschil(Verzameling v) throws Exception {
-    	
+    	Verzameling verschil1 = verschil(v);
+    	Verzameling verschil2 = v.verschil(this);
+    	return verschil1.vereniging(verschil2);
     }
     
 }
