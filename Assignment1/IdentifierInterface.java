@@ -66,6 +66,6 @@ public interface IdentifierInterface {
      *	    Retourneert false als de identifiers niet aan elkaar gelijk zijn. 
      *		Retourneert true als de identifiers aan elkaar gelijk zijn.
     **/
-    boolean equalTo(Identifier id);
+    boolean equals(Identifier id);
     
 }
