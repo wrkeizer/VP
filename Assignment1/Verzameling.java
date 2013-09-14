@@ -2,7 +2,7 @@ package assignment1;
 
 public class Verzameling implements VerzamelingInterface{
 	
-	private static final int MAX_AANTAL_ELEMENTEN = 20;
+	public static final int MAX_AANTAL_ELEMENTEN = 20;
 	
 	private Identifier[] identifiers;
 	private int size;
@@ -13,7 +13,21 @@ public class Verzameling implements VerzamelingInterface{
 	}
 	
 	public Verzameling(Verzameling src) {
-		//
+		identifiers = new Identifier[MAX_AANTAL_ELEMENTEN];
+		Verzameling clone = src.clone();
+		size = clone.getSize();
+		for (int i = 0; i < size; i++) {
+			identifiers[i] = new Identifier(clone.someElement());
+			clone.removeElement(identifiers[i]);
+		}
+	}
+	
+	public Verzameling clone() {
+		Verzameling clone = new Verzameling();
+		for (int i = 0; i < size; i++) {
+			clone.addElement(new Identifier(identifiers[i]));
+		}
+		return clone;
 	}
 	
 	public void init () {
@@ -47,7 +61,7 @@ public class Verzameling implements VerzamelingInterface{
     	return identifiers[size - 1];
     }
     
-    public int size() {
+    public int getSize() {
     	return size;
     }
 

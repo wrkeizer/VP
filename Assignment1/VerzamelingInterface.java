@@ -67,7 +67,7 @@ package assignment1;
      * @postconditie
      *	    Het aantal elementen van de verzameling is geretourneerd.
      **/
-    int size();
+    int getSize();
     
     
     /** Retourneert een nieuwe Verzameling met daarin het verschil van de eigen en de meegegeven verzameling.
