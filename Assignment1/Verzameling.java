@@ -13,11 +13,11 @@ public class Verzameling implements VerzamelingInterface{
 	}
 	
 	public Verzameling(Verzameling src) {
-		
+		//
 	}
 	
 	public void init () {
-		
+		size = 0;
 	}
 
     public void addElement(Identifier id) {

@@ -35,8 +35,9 @@ public class Identifier implements IdentifierInterface{
     }
     
     public boolean equals(Identifier id){
-    	if (id.getSize() != this.getSize())
+    	if (id.getSize() != this.getSize()) {
     		return false;
+    	}
     	
 		for (int i = 0; i < this.getSize(); i++) {
 			if (id.getChar(i) != this.getChar(i)) {
