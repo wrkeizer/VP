@@ -25,47 +25,53 @@ public class Main {
 		return in.hasNext(Pattern.quote(c+""));
 	}
 	
-	private boolean isCorrect(Verzameling v){
-		//setup Scanner
-		Scanner in = new Scanner(System.in);
-		in.useDelimiter("");
-		
-		
-		/*
-		Checklist:			
-		
-		Read until '}'
-			-Read first character
-			-Keep reading until space character: ' '
-			-Add those characters to Identifier while reading
-			-Add Identifier to v
-			-Do same thing with next 'word'
-		
-		Possible errors:
-			-'{' is missing; done
-			-First character is wrong
-			-Another character is wrong
-			-'}' is missing
-		
-		Make sure every error has an appropriate error message
-		
-		How does an EOF character work?
-			 
-		*/		
-		
-		
-		while(/*v != geldig*/){
+	
+	private boolean isCorrect(Verzameling v){				
+		boolean valid = false;
+		while(valid == false){
+			Scanner in = new Scanner(System.in);
+			in.useDelimiter("");
 			v.init();
 			System.out.print("Geef verzameling: ");
 			
 			if(nextCharIs(in, '{')){
 				
+				in.next(); //To get rid of said '{'
 				
-				
+				while(in.hasNext()){
+					
+					if(nextCharIs(in, '}')){
+						if(v.getSize() <= 10){
+							valid = true;
+						}else{
+							System.out.println("Verzameling bevat meer dan 10 elementen");
+							break;	
+						}
+					}
+					
+					while(!nextCharIs(in, ' ')){		
+						
+						if(nextCharIsLetter(in)){						
+							Identifier id = new Identifier();
+							id.init(nextChar(in));						
+							
+							if(nextCharIsLetter(in) || nextCharIsDigit(in)){
+								id.addChar(nextChar(in));
+							}else{
+								System.out.println("Verkeerd karakter. Alleen letters en cijfers toegestaan.");
+								break;
+							}						
+						
+						in.next(); //To get rid of the space						
+						v.addElement(id);
+						}else {
+							System.out.println("Identifier moet beginnen met een letter");
+							break;
+						}						
+					}						
+				}				
 			}else System.out.println("Verzameling moet beginnen met een'{'");
 		}
-		
-		in.close();
 		return true;
 	}
 	
