@@ -25,65 +25,55 @@ public class Main {
 		return in.hasNext(Pattern.quote(c+""));
 	}
 	
+	private boolean is1Correct(Verzameling v){				
+		boolean valid = false;		
+		while(valid == false){
+			Scanner in = new Scanner(System.in);
+			in.useDelimiter("");
+			v.init();
+			System.out.print("Geef eerste verzameling: ");
+			
+			if(nextCharIs(in, '{')){
+				in.next(); //Get rid of '{'
+				
+				start:
+				while(in.hasNext()){					
+					
+					
+					
+				}
+			}else System.out.println("Verzamling moet beginnen met een '{'");
+		}
+		
+		return true;
+	}
 	
-	private boolean isCorrect(Verzameling v){				
+	private boolean is2Correct(Verzameling v){				
 		boolean valid = false;
 		while(valid == false){
 			Scanner in = new Scanner(System.in);
 			in.useDelimiter("");
 			v.init();
-			System.out.print("Geef verzameling: ");
+			System.out.print("Geef tweede verzameling: ");
 			
 			if(nextCharIs(in, '{')){
+				valid = true;
 				
-				in.next(); //To get rid of said '{'
-				
-				while(in.hasNext()){
-					
-					if(nextCharIs(in, '}')){
-						if(v.getSize() <= 10){
-							valid = true;
-						}else{
-							System.out.println("Verzameling bevat meer dan 10 elementen");
-							break;	
-						}
-					}
-					
-					while(!nextCharIs(in, ' ')){		
-						
-						if(nextCharIsLetter(in)){						
-							Identifier id = new Identifier();
-							id.init(nextChar(in));						
-							
-							if(nextCharIsLetter(in) || nextCharIsDigit(in)){
-								id.addChar(nextChar(in));
-							}else{
-								System.out.println("Verkeerd karakter. Alleen letters en cijfers toegestaan.");
-								break;
-							}						
-						
-						in.next(); //To get rid of the space						
-						v.addElement(id);
-						}else {
-							System.out.println("Identifier moet beginnen met een letter");
-							break;
-						}						
-					}						
-				}				
-			}else System.out.println("Verzameling moet beginnen met een'{'");
+			}else System.out.println("Verzamling moet beginnen met een '{'");
 		}
+		
 		return true;
 	}
 	
 	private boolean readyToGo(Verzameling v1, Verzameling v2){
-		return isCorrect(v1) && isCorrect(v2);
+		return is1Correct(v1) && is2Correct(v2);
 	}
 	
 	private void start(){
 		Verzameling v1 = new Verzameling(),
 					v2 = new Verzameling();
 		while(readyToGo(v1, v2)){
-			//do operations
+			System.out.println("done\n");
 		}
 	}
 	
