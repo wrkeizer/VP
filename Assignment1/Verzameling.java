@@ -29,8 +29,8 @@ public class Verzameling implements VerzamelingInterface{
 			try{
 				clone.addElement(new Identifier(identifiers[i]));
 		 	}
-		 	catch(Exception e){
-	    		System.out.println("Het is niet gelukt een clone-object aan te maken.");
+		 	catch(ArrayIndexOutOfBoundsException e){
+	    		System.out.println("De verzameling bevat meer dan 20 elementen.\nHet is niet gelukt een clone-object aan te maken.");
 	    	}
 		}			
 		return clone;		
@@ -40,19 +40,14 @@ public class Verzameling implements VerzamelingInterface{
 		size = 0;
 	}
 
-    public void addElement(Identifier id) throws Exception{
-	    try{
-    		for (int i = 0; i < size; i++) {
-	    		if (identifiers[i].equals(id)) {
-	    			return;
-	    		}
+    public void addElement(Identifier id) throws ArrayIndexOutOfBoundsException{
+	    for (int i = 0; i < size; i++) {
+	    	if (identifiers[i].equals(id)) {
+	    		return;
 	    	}
-	    	identifiers[size] = id;
-	    	size += 1;
-    	}
-    	catch(Exception e){
-    		System.out.println("Verzameling bevat meer dan 20 elementen.");
-    	}
+	    }
+	    identifiers[size] = id;
+	    size += 1;
     }
     
     public void removeElement(Identifier id) {
@@ -102,8 +97,8 @@ public class Verzameling implements VerzamelingInterface{
 		 	try{
 		 		vereniging.addElement(id); //exception
 		 	}
-		 	catch(Exception e){
-	    		System.out.println("Het meegegeven object zal weer worden geretourneerd.");
+		 	catch(ArrayIndexOutOfBoundsException e){
+	    		System.out.println("De verzameling bevat meer dan 20 elementen.\nHet meegegeven object zal weer worden geretourneerd.");
 	    	}
 		   	opteller.removeElement(id);
 		}
