@@ -2,6 +2,7 @@ package assignment1;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import assignment1.IdentifierInterface;
 
 public class Main {
 
@@ -9,8 +10,17 @@ public class Main {
 		
 	}
 	
-	private char nextChar(Scanner in){
+	private char readChar(Scanner in){
 		return in.next().charAt(0);
+	}
+	
+	private Identifier readIdentifier(Scanner in) {
+		Identifier id = new Identifier();
+		id.init(readChar(in));
+		while (nextCharIsLetter(in) || nextCharIsDigit(in)) {
+			id.addChar(readChar(in));
+		}
+		return id;
 	}
 	
 	private boolean nextCharIsDigit (Scanner in) {
@@ -33,9 +43,10 @@ public class Main {
 			v.init();
 			System.out.print("Geef eerste verzameling: ");
 			
-			/*if (nextCharIs == EOF)
-				do something cool here;
-			*/
+			if (in.hasNext() == false) {
+				in.close();
+				return false;
+			} 
 			
 			if(nextCharIs(in, '{')){
 				in.next(); //Get rid of '{'
@@ -54,20 +65,33 @@ public class Main {
 					}
 					
 					if(nextCharIsLetter(in)){
+						Identifier id = readIdentifier(in);
+						if (!(nextCharIs(in, ' ') || nextCharIs(in, '}'))) {
+							if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
+								System.out.println("'}' is missing");
+								break start;
+							}
+							System.out.println("Identifier mag alleen bestaan uit letters en cijfers");
+							break start;
+						}
+						
+						/* is nu overbodig? 
 						Identifier id = new Identifier();
-						id.init(nextChar(in));
+						id.init(readChar(in));
 						while(!(nextCharIs(in, ' ') || nextCharIs(in, '}'))){
 							if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
 								System.out.println("'}' is missing");
 								break start;
 							}
 							if(nextCharIsLetter(in) || nextCharIsDigit(in)){
-								id.addChar(nextChar(in));
+								id.addChar(readChar(in));
 							}else{
 								System.out.println("Identifier mag alleen bestaan uit letters en cijfers");
 								break start;
 							}
 						}  
+						*/
+						
 						if(nextCharIs(in, ' ')){
 							in.next(); //Read away space
 						}
@@ -76,10 +100,11 @@ public class Main {
 						System.out.println("Identifier moet beginnen met een letter.");
 						break;
 					}
+					
 				}
 			}else System.out.println("Verzamling moet beginnen met een '{'");
 		}
-		System.out.println(v.someElement().name);
+		//System.out.println(v.someElement().name);//Fout
 	
 		return true;
 	}
