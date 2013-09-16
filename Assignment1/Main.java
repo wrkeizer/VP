@@ -40,21 +40,6 @@ public class Main {
 			if(nextCharIs(in, '{')){
 				in.next(); //Get rid of '{'
 				
-				/*
-				First you need a way to keep reading until you encounter a '}' character, with an error handling if such a character is non-existent.
-				Second read until a space or said '}', and add everything you've read in an Identifier.
-				If something you've read doesn't qualify as valid input, abort and start the entire loop over again.
-				If your Identifier is valid, add it to v.
-				If you've read everthing and every Identifier is valid and v is also valid, set boolean 'valid' to true, so the while loop ends and the program continues.
-				Make sure there are correct error handling messages for each specific error.
-				You also need to find an exception in case of an EOF character (ctrl+z windows), in which false is returned, essentially stopping the program.
-				
-				I tried to find solutions with both while(in.hasNext()) as well as while(!in.nextCharIs(in, '}')) as loop within the outer loop,
-				but couldn't find a working one for either.
-				
-				My best attempt looked something like the code below:
-				*/
-				
 				start:
 				while(in.hasNext()){
 					
