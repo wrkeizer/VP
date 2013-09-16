@@ -33,6 +33,10 @@ public class Main {
 			v.init();
 			System.out.print("Geef eerste verzameling: ");
 			
+			/*if (nextCharIs == EOF)
+				do something cool here;
+			*/
+			
 			if(nextCharIs(in, '{')){
 				in.next(); //Get rid of '{'
 				
@@ -53,9 +57,6 @@ public class Main {
 				
 				start:
 				while(in.hasNext()){
-					/*if (nextCharIs == EOF)
-						do something cool here;
-					*/
 					
 					if(nextCharIs(in, '}'){
 						if(v.getSize() < 11){
