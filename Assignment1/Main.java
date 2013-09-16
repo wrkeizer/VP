@@ -58,7 +58,7 @@ public class Main {
 				start:
 				while(in.hasNext()){
 					
-					if(nextCharIs(in, '}'){
+					if(nextCharIs(in, '}')){
 						if(v.getSize() < 11){
 							valid = true;
 							break;
@@ -68,17 +68,24 @@ public class Main {
 						}
 					}
 					
-					if(nextCharIsLetter(in){
+					if(nextCharIsLetter(in)){
 						Identifier id = new Identifier();
-						id.init(in.next());
-						while(!(nextCharIs(in, ' ' || nextCharIs(in, '}')){
-							if(nextCharIsLetter || nextCharIsDigit){
-								id.addChar(in.next);
+						id.init(nextChar(in));
+						while(!(nextCharIs(in, ' ') || nextCharIs(in, '}'))){
+							if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
+								System.out.println("'}' is missing");
+								break start;
+							}
+							if(nextCharIsLetter(in) || nextCharIsDigit(in)){
+								id.addChar(nextChar(in));
 							}else{
 								System.out.println("Identifier mag alleen bestaan uit letters en cijfers");
 								break start;
 							}
 						}  
+						if(nextCharIs(in, ' ')){
+							in.next(); //Read away space
+						}
 						v.addElement(id);
 					}else{
 						System.out.println("Identifier moet beginnen met een letter.");
@@ -87,7 +94,8 @@ public class Main {
 				}
 			}else System.out.println("Verzamling moet beginnen met een '{'");
 		}
-		
+		System.out.println(v.someElement().name);
+	
 		return true;
 	}
 	
