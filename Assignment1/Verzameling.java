@@ -95,7 +95,7 @@ public class Verzameling implements VerzamelingInterface{
 		while (opteller.getSize() > 0) {
 		 	Identifier id = opteller.someElement();
 		 	try{
-		 		vereniging.addElement(id); //exception
+		 		vereniging.addElement(id);
 		 	}
 		 	catch(ArrayIndexOutOfBoundsException e){
 	    		System.out.println("De verzameling bevat meer dan 20 elementen.\nHet meegegeven object zal weer worden geretourneerd.");
@@ -108,7 +108,7 @@ public class Verzameling implements VerzamelingInterface{
     public Verzameling symmetrischVerschil(Verzameling v){
     	Verzameling verschil1 = verschil(v);
     	Verzameling verschil2 = v.verschil(this);
-    	return verschil1.vereniging(verschil2); //exception
+    	return verschil1.vereniging(verschil2);
     }
     
 }
