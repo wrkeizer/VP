@@ -39,8 +39,10 @@ package assignment1;
      *	    -
      * @postconditie
      *	    In de verzameling zit een identifier met dezelfde inhoud als id.
+     * @exception
+     * 	    Als de verzameling meer dan 20 elementen bevat.
      **/
-    void addElement(Identifier id) throws Exception;
+    void addElement(Identifier id) throws ArrayIndexOutOfBoundsException;
 
 
     /** Verwijdert een Identifier uit de verzameling.
