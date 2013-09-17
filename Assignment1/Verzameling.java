@@ -88,9 +88,7 @@ public class Verzameling implements VerzamelingInterface{
     }
     
     public Verzameling vereniging(Verzameling v){
-    	Verzameling vereniging = this.clone();
-    	
-    	
+    	Verzameling vereniging = this.clone();    	
 		Verzameling opteller = v.clone();
 		while (opteller.getSize() > 0) {
 		 	Identifier id = opteller.someElement();
