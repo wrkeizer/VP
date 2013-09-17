@@ -40,9 +40,9 @@ package assignment1;
      * @postconditie
      *	    In de verzameling zit een identifier met dezelfde inhoud als id.
      * @exception
-     * 		als de nieuwe verzameling meer dan 20 elementen bevat.
+     * 	    Als de verzameling meer dan 20 elementen bevat.
      **/
-    void addElement(Identifier id) throws Exception; //Of niet?
+    void addElement(Identifier id) throws ArrayIndexOutOfBoundsException;
 
 
     /** Verwijdert een Identifier uit de verzameling.
@@ -95,10 +95,8 @@ package assignment1;
      *	    -
      * @postconditie
      *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die in de eigen verzameling of in v zitten.
-     * @exception
-     * 		Als de vereniging meer dan 20 elemten bevat.
      **/
-    Verzameling vereniging(Verzameling v) throws Exception;
+    Verzameling vereniging(Verzameling v);
     
     
     /** Retourneert een nieuwe Verzameling met daarin het symmetrisch verschil van de eigen en de meegegeven verzameling.
@@ -106,8 +104,6 @@ package assignment1;
      *	    -
      * @postconditie
      *	    De nieuwe Verzameling bevat een kopie van alle Identifiers die in de eigen verzameling of in v ziten, maar niet in allebei.
-     * @exception
-     * 		Als het symmetrisch verschil meer dan 20 elemten bevat.
      **/    
-    Verzameling symmetrischVerschil(Verzameling v) throws Exception;
+    Verzameling symmetrischVerschil(Verzameling v);
 }
