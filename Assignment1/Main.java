@@ -98,39 +98,196 @@ public class Main {
 		}		
 	}
 	
+<<<<<<< HEAD
 	private boolean leesInvoerIn(Verzameling v1, Verzameling v2) {
 
 		Scanner in;
 		
 		do { //lees eerste verzameling in
 			in = new Scanner(System.in);
+=======
+	private boolean is1Correct(Verzameling v){				
+		boolean valid = false;		
+		while(valid == false){
+			Scanner in = new Scanner(System.in);
+>>>>>>> 6f9b71bf59ba93d4f5d2ac9171172635b0e3492b
 			in.useDelimiter("");
 			v1.init();
 			System.out.print("Geef eerste verzameling: ");
 			if (in.hasNext() == false) {
 				in.close();
 				return false;
+<<<<<<< HEAD
 			}
 		} while (!leesVerzamelingIn(v1, in));
 		
 		do { //lees tweede verzameling in
 			in = new Scanner(System.in);
+=======
+			} 
+			
+			if(nextCharIs(in, '{')){
+				in.next(); //Get rid of '{'
+				
+				start:
+				while(in.hasNext()){
+					
+					if(nextCharIs(in, '}')){
+						if(v.getSize() < 11){
+							valid = true;
+							break;
+						}else {
+							System.out.println("Verzameling heeft meer dan 10 elementen");
+							break;
+						}
+					}
+					
+					if(nextCharIsLetter(in)){
+						Identifier id = readIdentifier(in);
+						if (!(nextCharIs(in, ' ') || nextCharIs(in, '}'))) {
+							if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
+								System.out.println("'}' is missing");
+								break start;
+							}
+							System.out.println("Identifier mag alleen bestaan uit letters en cijfers");
+							break start;
+						}
+						
+						/* is nu overbodig? 
+						Identifier id = new Identifier();
+						id.init(readChar(in));
+						while(!(nextCharIs(in, ' ') || nextCharIs(in, '}'))){
+							if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
+								System.out.println("'}' is missing");
+								break start;
+							}
+							if(nextCharIsLetter(in) || nextCharIsDigit(in)){
+								id.addChar(readChar(in));
+							}else{
+								System.out.println("Identifier mag alleen bestaan uit letters en cijfers");
+								break start;
+							}
+						}  
+						*/
+						
+						if(nextCharIs(in, ' ')){
+							in.next(); //Read away space
+						}
+						try{
+							v.addElement(id);
+						}
+						catch(Exception e){
+							break;
+						}
+					}else{
+						System.out.println("Identifier moet beginnen met een letter.");
+						break;
+					}
+					
+				}
+			}else System.out.println("Verzamling moet beginnen met een '{'");
+		}
+		//System.out.println(v.someElement().name);//Fout
+	
+		return true;
+	}
+	
+	private boolean is2Correct(Verzameling v){				
+		boolean valid = false;
+		while(valid == false){
+			Scanner in = new Scanner(System.in);
+>>>>>>> 6f9b71bf59ba93d4f5d2ac9171172635b0e3492b
 			in.useDelimiter("");
 			v2.init();
 			System.out.print("Geef tweede verzameling: ");
+<<<<<<< HEAD
 			if (in.hasNext() == false) {
 				in.close();
 				return false;
 			}
 		} while (!leesVerzamelingIn(v2, in));
 		
+=======
+			
+			if (in.hasNext() == false) {
+				in.close();
+				return false;
+			} 
+			
+			if(nextCharIs(in, '{')){
+				in.next(); //Get rid of '{'
+				
+				start:
+				while(in.hasNext()){
+					
+					if(nextCharIs(in, '}')){
+						if(v.getSize() < 11){
+							valid = true;
+							break;
+						}else {
+							System.out.println("Verzameling heeft meer dan 10 elementen");
+							break;
+						}
+					}
+					
+					if(nextCharIsLetter(in)){
+						Identifier id = readIdentifier(in);
+						if (!(nextCharIs(in, ' ') || nextCharIs(in, '}'))) {
+							if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
+								System.out.println("'}' is missing");
+								break start;
+							}
+							System.out.println("Identifier mag alleen bestaan uit letters en cijfers");
+							break start;
+						}
+						
+						/* is nu overbodig? 
+						Identifier id = new Identifier();
+						id.init(readChar(in));
+						while(!(nextCharIs(in, ' ') || nextCharIs(in, '}'))){
+							if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
+								System.out.println("'}' is missing");
+								break start;
+							}
+							if(nextCharIsLetter(in) || nextCharIsDigit(in)){
+								id.addChar(readChar(in));
+							}else{
+								System.out.println("Identifier mag alleen bestaan uit letters en cijfers");
+								break start;
+							}
+						}  
+						*/
+						
+						if(nextCharIs(in, ' ')){
+							in.next(); //Read away space
+						}
+						try{
+							v.addElement(id);
+						}
+						catch(Exception e){
+							break;
+						}
+					}else{
+						System.out.println("Identifier moet beginnen met een letter.");
+						break;
+					}
+					
+				}
+			}else System.out.println("Verzamling moet beginnen met een '{'");
+		}
+		//System.out.println(v.someElement().name);//Fout	
+>>>>>>> 6f9b71bf59ba93d4f5d2ac9171172635b0e3492b
 		return true;
 	}
 	
 	private void start(){
 		Verzameling v1 = new Verzameling(),
 					v2 = new Verzameling();
+<<<<<<< HEAD
 		while(leesInvoerIn(v1, v2)){
+=======
+		while(readyToGo(v1, v2)){
+>>>>>>> 6f9b71bf59ba93d4f5d2ac9171172635b0e3492b
 			Verzameling v1Clone = v1.clone();
 			v1Clone = v1Clone.verschil(v2);
 			System.out.print("Verschil: {");
@@ -154,6 +311,10 @@ public class Main {
 			System.out.print("Symmetrisch verschil: {");
 			print(v1Clone);
 			System.out.println('}');
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 6f9b71bf59ba93d4f5d2ac9171172635b0e3492b
 		}
 	}
 	
