@@ -30,7 +30,7 @@ public class Verzameling implements VerzamelingInterface{
 				clone.addElement(new Identifier(identifiers[i]));
 		 	}
 		 	catch(ArrayIndexOutOfBoundsException e){
-	    		System.out.println("De verzameling bevat meer dan 20 elementen.\nHet is niet gelukt een clone-object aan te maken.");
+	    		System.out.println("De verzameling bevat meer dan " + MAX_AANTAL_ELEMENTEN + " elementen.\nHet is niet gelukt een clone-object aan te maken.");
 	    	}
 		}			
 		return clone;		
@@ -96,7 +96,7 @@ public class Verzameling implements VerzamelingInterface{
 		 		vereniging.addElement(id);
 		 	}
 		 	catch(ArrayIndexOutOfBoundsException e){
-	    		System.out.println("De verzameling bevat meer dan 20 elementen.\nHet meegegeven object zal weer worden geretourneerd.");
+	    		System.out.println("De verzameling bevat meer dan " + MAX_AANTAL_ELEMENTEN + " elementen.\nHet meegegeven object zal weer worden geretourneerd.");
 	    	}
 		   	opteller.removeElement(id);
 		}
