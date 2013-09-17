@@ -30,14 +30,11 @@ public class Main {
 			return false;
 		}
 		in.next(); // Get rid of '{'
-
-		while (nextCharIsSpace(in)) {
-			in.next(); // remove (optional) whitespace
-		}
+		removeWhitespace(in);
 
 		while(nextCharIs(in, '}') == false) { // read in identifiers
 			if (v.getSize() == MAX_AANTAL_IDENTIFIERS_INPUT) {
-				System.out.println("Verzameling heeft teveel elementen.");
+				System.out.println("De verzameling bevat teveel elementen.");
 				return false;
 			}
 			if (!nextCharIsLetter(in)) {
@@ -45,25 +42,41 @@ public class Main {
 				return false;
 			}
 			Identifier id = readIdentifier(in); // read in individual identifier
-			if(nextCharIs(in, '\n') || nextCharIs(in, '\r')){
+			if(nextCharIsNewLine(in)){
 				System.out.println("De '}' ontbreekt.");
 				return false;
 			}
-			if (!(nextCharIs(in, ' ') || nextCharIs(in, '}'))) {
+			if (!(nextCharIsSpace(in) || nextCharIs(in, '}'))) {
 				System.out.println("Identifier mag alleen bestaan uit letters en cijfers.");
 				return false;
 			}
 			v.addElement(id); // add identifier to set
-			while (nextCharIsSpace(in)) {
-				in.next(); // Read away space
-			}
+			removeWhitespace(in);
 		}
+		
 		in.next(); // Lose the '}'
-		return true;
+		removeWhitespace(in);
+		if(nextCharIsNewLine(in)) {
+			return true;
+		}
+		
+		System.out.println("Er staan tekens buiten de verzameling.");
+		return false;
+	}
+	
+	
+	private void removeWhitespace(Scanner in) {
+		while (nextCharIsSpace(in)) {
+			in.next(); // Read away space
+		}
 	}
 	
 	private boolean nextCharIsSpace (Scanner in) {
 		return in.hasNext(" ");
+	}
+	
+	private boolean nextCharIsNewLine(Scanner in) {
+		return nextCharIs(in, '\n') || nextCharIs(in, '\r');
 	}
 	
 	private boolean nextCharIsDigit (Scanner in) {
@@ -79,13 +92,14 @@ public class Main {
 	}
 	
 	private void print(Verzameling v){
-		while(v.getSize() > 1){
-			Identifier id = v.someElement();
+		Verzameling clone = v.clone();
+		while(clone.getSize() > 1){
+			Identifier id = clone.someElement();
 			for(int i=0; i<id.getSize(); i++){
 				System.out.print(id.getChar(i));
 			}
 			System.out.print(" ");
-			v.removeElement(id);
+			clone.removeElement(id);
 		}
 		
 		//For the last element, don't print the space at the end
@@ -95,46 +109,40 @@ public class Main {
 				System.out.print(id.getChar(i));
 			}
 			v.removeElement(id);
-		}		
+		}
 	}
 	
-	private boolean leesInvoerIn(Verzameling v1, Verzameling v2) {
-
+	private boolean vraagVerzameling(String s, Verzameling v) {
 		Scanner in;
 		
 		do { //lees eerste verzameling in
 			in = new Scanner(System.in);
 			in.useDelimiter("");
-			v1.init();
-			System.out.print("Geef eerste verzameling: ");
+			v.init();
+			System.out.print(s);
 			if (in.hasNext() == false) {
 				in.close();
 				return false;
 			}
-		} while (!leesVerzamelingIn(v1, in));
-		
-		do { //lees tweede verzameling in
-			in = new Scanner(System.in);
-			in.useDelimiter("");
-			v2.init();
-			System.out.print("Geef tweede verzameling: ");
-			if (in.hasNext() == false) {
-				in.close();
-				return false;
-			}
-		} while (!leesVerzamelingIn(v2, in));
+		} while (leesVerzamelingIn(v, in) == false);
 		
 		return true;
+		
+	}
+	
+	private boolean vraagInvoer(Verzameling v1, Verzameling v2) {
+		return vraagVerzameling("Geef eerste verzameling: ", v1) && vraagVerzameling("Geef tweede verzameling: ", v2);
 	}
 	
 	private void start(){
 		Verzameling v1 = new Verzameling(),
 					v2 = new Verzameling();
-		while(leesInvoerIn(v1, v2)){
+		while(vraagInvoer(v1, v2)){
 			Verzameling v1Clone = v1.clone();
 			v1Clone = v1Clone.verschil(v2);
 			System.out.print("Verschil: {");
-			print(v1Clone);
+			print(v1.verschil(v2));
+			print(v1);
 			System.out.println('}');
 			
 			v1Clone = v1.clone();
