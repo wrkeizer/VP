@@ -91,15 +91,15 @@ public class Main {
 		return in.hasNext(Pattern.quote(c+""));
 	}
 	
-	private void print(Verzameling v){
-		Verzameling clone = v.clone();
-		while(clone.getSize() > 1){
-			Identifier id = clone.someElement();
+	private void print(Verzameling v, String s){
+		System.out.print(s + ": {");
+		while(v.getSize() > 1){
+			Identifier id = v.someElement();
 			for(int i=0; i<id.getSize(); i++){
 				System.out.print(id.getChar(i));
 			}
 			System.out.print(" ");
-			clone.removeElement(id);
+			v.removeElement(id);
 		}
 		
 		//For the last element, don't print the space at the end
@@ -110,6 +110,7 @@ public class Main {
 			}
 			v.removeElement(id);
 		}
+		System.out.println('}');
 	}
 	
 	private boolean vraagVerzameling(String s, Verzameling v) {
@@ -138,30 +139,10 @@ public class Main {
 		Verzameling v1 = new Verzameling(),
 					v2 = new Verzameling();
 		while(vraagInvoer(v1, v2)){
-			Verzameling v1Clone = v1.clone();
-			v1Clone = v1Clone.verschil(v2);
-			System.out.print("Verschil: {");
-			print(v1.verschil(v2));
-			print(v1);
-			System.out.println('}');
-			
-			v1Clone = v1.clone();
-			v1Clone = v1Clone.doorsnede(v2);
-			System.out.print("Doorsnede: {");
-			print(v1Clone);
-			System.out.println('}');
-			
-			v1Clone = v1.clone();
-			v1Clone = v1Clone.vereniging(v2);
-			System.out.print("Vereniging: {");
-			print(v1Clone);
-			System.out.println('}');
-			
-			v1Clone = v1.clone();
-			v1Clone = v1Clone.symmetrischVerschil(v2);
-			System.out.print("Symmetrisch verschil: {");
-			print(v1Clone);
-			System.out.println('}');
+			print(v1.verschil(v2), "Verschil");
+			print(v1.doorsnede(v2), "Doorsnede");
+			print(v1.vereniging(v2), "Vereniging");
+			print(v1.symmetrischVerschil(v2), "Symmetrisch verschil");
 		}
 	}
 	
