@@ -25,7 +25,11 @@ public class Main {
 	}
 	
 	private boolean leesVerzamelingIn(Verzameling v, Scanner in) {
+		removeWhitespace(in);
 		if(!nextCharIs(in, '{')){
+			if (nextCharIsNewLine(in)) {
+				return false;
+			}
 			System.out.println("Verzameling moet beginnen met een '{'.");
 			return false;
 		}
@@ -33,10 +37,6 @@ public class Main {
 		removeWhitespace(in);
 
 		while(nextCharIs(in, '}') == false) { // read in identifiers
-			if (v.getSize() == MAX_AANTAL_IDENTIFIERS_INPUT) {
-				System.out.println("De verzameling bevat teveel elementen.");
-				return false;
-			}
 			if (!nextCharIsLetter(in)) {
 				System.out.println("Identifier moet beginnen met een letter.");
 				return false;
@@ -51,6 +51,10 @@ public class Main {
 				return false;
 			}
 			v.addElement(id); // add identifier to set
+			if (v.getSize() > MAX_AANTAL_IDENTIFIERS_INPUT) {
+				System.out.println("De verzameling bevat teveel elementen.");
+				return false;
+			}
 			removeWhitespace(in);
 		}
 		
@@ -143,6 +147,7 @@ public class Main {
 			print(v1.doorsnede(v2), "Doorsnede");
 			print(v1.vereniging(v2), "Vereniging");
 			print(v1.symmetrischVerschil(v2), "Symmetrisch verschil");
+			System.out.println();
 		}
 	}
 	
