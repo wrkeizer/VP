@@ -7,8 +7,11 @@ public class Main {
 	
 	public static final int MAX_AANTAL_IDENTIFIERS_INPUT = 10;
 	
+	Scanner in;
+	
 	Main(){
-		
+		in = new Scanner(System.in);
+		in.useDelimiter("");
 	}
 	
 	private char nextChar(Scanner in){
@@ -31,6 +34,7 @@ public class Main {
 				return false;
 			}
 			System.out.println("Verzameling moet beginnen met een '{'.");
+			in.nextLine();//Bethlehem insert
 			return false;
 		}
 		in.next(); // Get rid of '{'
@@ -39,20 +43,24 @@ public class Main {
 		while(nextCharIs(in, '}') == false) { // read in identifiers
 			if (!nextCharIsLetter(in)) {
 				System.out.println("Identifier moet beginnen met een letter.");
+				in.nextLine();//Bethlehem insert
 				return false;
 			}
 			Identifier id = readIdentifier(in); // read in individual identifier
 			if(nextCharIsNewLine(in)){
 				System.out.println("De '}' ontbreekt.");
+				in.nextLine();//Bethlehem insert
 				return false;
 			}
 			if (!(nextCharIsSpace(in) || nextCharIs(in, '}'))) {
 				System.out.println("Identifier mag alleen bestaan uit letters en cijfers.");
+				in.nextLine();//Bethlehem insert
 				return false;
 			}
 			v.addElement(id); // add identifier to set
 			if (v.getSize() > MAX_AANTAL_IDENTIFIERS_INPUT) {
 				System.out.println("De verzameling bevat teveel elementen.");
+				in.nextLine();//Bethlehem insert
 				return false;
 			}
 			removeWhitespace(in);
@@ -61,10 +69,12 @@ public class Main {
 		in.next(); // Lose the '}'
 		removeWhitespace(in);
 		if(nextCharIsNewLine(in)) {
+			in.nextLine();//Bethlehem insert
 			return true;
 		}
 		
 		System.out.println("Er staan tekens buiten de verzameling.");
+		in.nextLine();//Bethlehem insert
 		return false;
 	}
 	
@@ -117,12 +127,8 @@ public class Main {
 		System.out.println('}');
 	}
 	
-	private boolean vraagVerzameling(String s, Verzameling v) {
-		Scanner in;
-		
+	private boolean vraagVerzameling(String s, Verzameling v) {		
 		do { //lees eerste verzameling in
-			in = new Scanner(System.in);
-			in.useDelimiter("");
 			v.init();
 			System.out.print(s);
 			if (in.hasNext() == false) {
