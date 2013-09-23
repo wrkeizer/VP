@@ -1,4 +1,4 @@
-package opgave2;
+package assignment2;
 
 public interface Clonable extends Cloneable {
 

@@ -1,4 +1,4 @@
-package opgave2;
+package assignment2;
 
 /**	@elementen : objects of type E
  *	@structuur : lineair
