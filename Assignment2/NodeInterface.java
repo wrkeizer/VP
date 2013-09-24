@@ -5,23 +5,23 @@ package assignment2;
 * @author Floris Golbach & Wisse Keizer
 *
 * @elementen
-* 	Objects of type Node.
+* 	Objects of type E.
 * @structuur
-* 	Linked with prior and next Node object.
+* 	Linear linked with prior and next Node object.
 * @domein
-* 	Data of some type.
+* 	E extends Data.
 *
 * @constructor
 * 	Node(E d);
 * 		<dl>
 * 		<dt><b>PRE:</b><dd> -
-* 		<dt><b>POST:</b><dd> The content of the new Node object is a copy of some data d.
+* 		<dt><b>POST:</b><dd> The content of the new Node object is a copy of data d.
 * 		</dl>
 *  <br>
 *  Node(E d, Node<E> prior, Node<E> next);
 * 		<dl>
 * 		<dt><b>PRE:</b><dd> -
-* 		<dt><b>POST:</b><dd> The content of the new Node object contains copies of some data d and Nodes prior and next.
+* 		<dt><b>POST:</b><dd> The content of the new Node object contains a copy of data d and pointers to Nodes prior and next.
 * 		</dl>
 **/
 

@@ -29,7 +29,7 @@ public interface ListInterface<E extends Data> extends Clonable {
 	/**	@preconditie  -
 	 *	@postconditie - The number of elements has been returned.
 	 **/
-	int size ();
+	int getSize ();
 
 	/** @preconditie  -
 	 *	@postconditie - A copy of d has been added to List-PRE.
@@ -98,7 +98,7 @@ public interface ListInterface<E extends Data> extends Clonable {
 
 
 	/** @preconditie  - 
-	 *	@postconditie - FALSE: list is empty of current wijst het eerste object aan
+	 *	@postconditie - FALSE: list is empty of current points to the first element
 	 *     				TRUE:  current-POST points to the prior element of current-PRE
 	 */
 	boolean getPrior ();
