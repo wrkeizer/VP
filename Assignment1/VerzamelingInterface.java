@@ -26,7 +26,7 @@ package assignment1;
  **/
  public interface VerzamelingInterface{
 	 
-	 /**Maakt een kloon van het Verzameling object.
+	 /**Maakt een clone van het Verzameling object.
 	  * @preconditie
 	  * 	-
 	  * @postconditie
