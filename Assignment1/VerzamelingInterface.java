@@ -25,7 +25,15 @@ package assignment1;
  * 		</dl>
  **/
  public interface VerzamelingInterface{
-	
+	 
+	 /**Maakt een kloon van het Verzameling object.
+	  * @preconditie
+	  * 	-
+	  * @postconditie
+	  * 	Een kopie van het Verzameling object is geretourneerd	 
+	  **/
+	 Verzameling clone();
+	 
 	/** Initialiseert het Verzameling object tot de lege verzameling.
      * @preconditie
      *	    -

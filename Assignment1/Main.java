@@ -107,20 +107,15 @@ public class Main {
 	
 	private void print(Verzameling v, String s){
 		System.out.print(s + ": {");
-		while(v.getSize() > 1){
+		while(v.getSize() > 0){
 			Identifier id = v.someElement();
 			for(int i=0; i<id.getSize(); i++){
 				System.out.print(id.getChar(i));
 			}
-			System.out.print(" ");
-			v.removeElement(id);
-		}
-		
-		//For the last element, don't print the space at the end
-		if(v.getSize() == 1){ 
-			Identifier id = v.someElement();
-			for(int i=0; i<id.getSize(); i++){
-				System.out.print(id.getChar(i));
+			
+			//For the last element, don't print the space at the end
+			if(v.getSize() > 1){
+				System.out.print(" ");
 			}
 			v.removeElement(id);
 		}
