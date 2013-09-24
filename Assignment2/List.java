@@ -69,7 +69,7 @@ public class List<E extends Data> implements ListInterface{
 		if(isEmpty() || current == last){
 			return false;
 		}else{
-			//make current point to next element
+			current = current.next;
 			return true;
 		}
 	}
@@ -78,7 +78,7 @@ public class List<E extends Data> implements ListInterface{
 		if(isEmpty() || current == first){
 			return false;
 		}else{
-			//make current point to prior element
+			current = current.prior;
 			return true;
 		}
 	}
