@@ -38,7 +38,7 @@ public class List<E extends Data> implements ListInterface{
 	}
 	
 	public E retrieve(){
-		
+		return current.data;
 	}
 	
 	public List<E> remove(){
@@ -46,7 +46,27 @@ public class List<E extends Data> implements ListInterface{
 	}
 	
 	public boolean find(E d){
-	
+		if(isEmpty()){
+			return false;
+		}
+		
+		if(setFirst()){
+			do{				
+				if(d.compareTo(current.data) == 0){
+					return true;
+				}
+				
+				if(d.compareTo(current.data) == 1){
+					//Make current point to the last element < d or first element if first < d.
+					if(!(current == first)){
+						current = current.prior;
+					}
+					return false;
+				}
+			}while(getNext());
+			//If the method gets to this point, current < d and current should already be pointing to last.
+			return false;
+		}else return false;
 	}
 	
 	public boolean setFirst(){
