@@ -2,6 +2,7 @@
 package assignment2;
 
 public class List<E extends Data> implements ListInterface<E> {
+	//bla
 	Node<E> first, 
 			last, 
 			current;
