@@ -31,6 +31,7 @@ public class Main {
 		removeWhitespace(in);
 		if(!nextCharIs(in, '{')){
 			if (nextCharIsNewLine(in)) {
+				in.nextLine();//Keizer insert
 				return false;
 			}
 			System.out.println("Verzameling moet beginnen met een '{'.");
@@ -123,7 +124,7 @@ public class Main {
 	}
 	
 	private boolean vraagVerzameling(String s, Verzameling v) {		
-		do { //lees eerste verzameling in
+		do { //lees verzameling in
 			v.init();
 			System.out.print(s);
 			if (in.hasNext() == false) {

@@ -10,18 +10,18 @@ package assignment2;
  *	<dl>
  *		<dt><b>PRE-conditie</b><dd>		-
  *		<dt><b>POST-conditie</b><dd> 	The new List-object is the empty list.
- * </dl>
+ * </dl> 
  **/
 
-public interface ListInterface<E extends Data> extends Clonable {
+public interface ListInterface<E extends Data> extends Clonable{
 
-	/**	@preconditie -
+	/**	@preconditie - 
 	 *  @postconditie - FALSE: list is not empty.
 	 *  				TRUE:  list is empty.
 	 **/
 	boolean isEmpty ();
 
-	/** @preconditie  -
+	/** @preconditie  - 
 	 *	@postconditie - list-POST is empty and has been returned.
 	 **/
 	List<E> init ();
@@ -79,6 +79,7 @@ public interface ListInterface<E extends Data> extends Clonable {
 	/** @preconditie  - 
 	 *	@postconditie - FALSE: list is empty
 	 *    				TRUE:  current points to the first element
+	 *
 	 **/
 	boolean setFirst ();
 

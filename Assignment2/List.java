@@ -1,12 +1,11 @@
 package assignment2;
 
-public class List<E extends Data> implements ListInterface{
+public class List<E extends Data> implements ListInterface<E> {
 	Node<E> first, 
 			last, 
 			current;
 	
 	List(){
-		//Is this necessary?
 		first = last = current = null;
 	}
 	
@@ -17,7 +16,8 @@ public class List<E extends Data> implements ListInterface{
 	}
 	
 	public List<E> init(){
-		return new List<E>();
+		first = last = current = null;
+		return this;
 	}
 	
 	public int getSize(){
@@ -45,7 +45,7 @@ public class List<E extends Data> implements ListInterface{
 		
 	}
 	
-	public boolean find(E d){
+	public boolean find(E d) {
 		if(isEmpty()){
 			return false;
 		}
