@@ -1,7 +1,6 @@
 package assignment2;
-//nla
+
 public class List<E extends Data> implements ListInterface<E> {
-	//bla
 	Node<E> first, 
 			last, 
 			current;
