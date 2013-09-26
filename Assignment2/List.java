@@ -34,7 +34,22 @@ public class List<E extends Data> implements ListInterface<E> {
 	}
 	
 	public List<E> insert(E d){
-		
+		if (setFirst() == false) { // Insert in empty list
+			first = last = current = new Node<E>(d);
+		} else {
+			while(d.compareTo(current.data) < 1) {
+				if (getNext() == false) { // Insert at end of list
+					last = current = new Node<E>(d, last, null);
+					current.prior.next = current;
+					return this;
+				}
+			}
+			// Insert before current
+			current = new Node<E>(d, current.prior, current);
+			current.prior.next = current;
+			current.next.prior = current;
+		}
+		return this;
 	}
 	
 	public E retrieve(){
@@ -43,6 +58,26 @@ public class List<E extends Data> implements ListInterface<E> {
 	
 	public List<E> remove(){
 		
+		if (first == last) {
+			first = last = current = null;
+			return this;
+		}
+		
+		if (current == last) {
+			current.prior.next = null;
+			last = current = current.prior;
+			return this;
+		}
+		
+		if (current == first) {
+			current.next.prior = null;
+			first = current = current.next;
+			return this;
+		}
+		
+		current.next.prior = current.prior;
+		current = current.prior.next = current.next;
+		return this;
 	}
 	
 	public boolean find(E d) {
