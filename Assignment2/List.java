@@ -10,9 +10,7 @@ public class List<E extends Data> implements ListInterface<E> {
 	}
 	
 	public boolean isEmpty(){
-		if(first == null){
-			return true;
-		}else return false;
+		return first == null;
 	}
 	
 	public List<E> init(){
@@ -105,19 +103,13 @@ public class List<E extends Data> implements ListInterface<E> {
 	}
 	
 	public boolean setFirst(){
-		if(isEmpty()){
-			return false;
-		}
 		current = first;
-		return true;
+		return current != null;
 	}
 	
 	public boolean setLast(){
-		if(isEmpty()){
-			return false;
-		}
 		current = last;
-		return true;
+		return current != null;
 	}
 	
 	public boolean getNext(){
@@ -140,8 +132,11 @@ public class List<E extends Data> implements ListInterface<E> {
 	
 	public List<E> clone(){
 		List<E> clone = new List<E>();
-		while(getNext()){
-			clone.insert(current.clone().data);
+		
+		if(setFirst()){
+			while(getNext()){
+				clone.insert(current.clone().data);
+			}
 		}
 		return clone;
 	}
