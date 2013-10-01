@@ -4,13 +4,14 @@ public class N implements NInterface{
 	
 	private StringBuffer s;
 	
-	N(int i){
-		s.insert(0, i);
+	N() {
+		s = new StringBuffer();
+		init();
 	}
 	
 	public N init(){
-		s.delete(0, getLength());
-		s.insert(0, 0);
+		s.delete(0, s.length());
+		s.append("0");
 		return this;
 	}
 	
@@ -29,7 +30,7 @@ public class N implements NInterface{
 	}
 	
 	public N clone(){
-		N copy = new N(0);
+		N copy = new N();
 		
 		for(int i = 0; i < getLength(); i++){
 			copy.addChar(getChar(i));

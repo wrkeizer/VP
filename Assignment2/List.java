@@ -6,7 +6,7 @@ public class List<E extends Data> implements ListInterface<E> {
 			current;
 	
 	List(){
-		first = last = current = null;
+		init();
 	}
 	
 	public boolean isEmpty(){

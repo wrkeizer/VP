@@ -13,7 +13,7 @@ public class Table<K extends Data, V extends Clonable> implements TableInterface
 	}
 	
 	public Table<K,V> init() {
-		list = new List<KeyValuePair<K,V>>();
+		list.init();
 		return this;
 	}
 	

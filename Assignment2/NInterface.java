@@ -12,18 +12,20 @@ package assignment2;
 * 	All natural numbers.
 *
 * @constructor
-* 	N(int i);
+* 
+* 	N();
 * 		<dl>
 * 		<dt><b>PRE:</b><dd> -
-* 		<dt><b>POST:</b><dd> The content of the new N object is a String with the value of i.
+* 		<dt><b>POST:</b><dd> The new N object is initialized to contain a placeholder value
 * 		</dl>
 *  <br>
+* 
 **/
 
 public interface NInterface extends Data{
 	
 	/** @preconditie  -
-	 *	@postconditie - The content of the new N object has been initialized to contain a dummy character and has been returned.
+	 *	@postconditie - The N object is initialized to contain a placeholder value and has been returned.
 	 */
 	public N init();
 	
