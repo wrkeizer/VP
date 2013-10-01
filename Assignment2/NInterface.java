@@ -5,7 +5,7 @@ package assignment2;
 * @author 
 * 	Floris Golbach & Wisse Keizer
 * @elementen
-* 	A string which contains a natural number.
+* 	A natural number.
 * @structuur
 * 	None.
 * @domein
@@ -18,17 +18,39 @@ package assignment2;
 * 		<dt><b>POST:</b><dd> The content of the new N object is a String with the value of i.
 * 		</dl>
 *  <br>
-*  N(String s);
-* 		<dl>
-* 		<dt><b>PRE:</b><dd> s Should be a natural number.
-* 		<dt><b>POST:</b><dd> The content of the new N object is a String with the value of s.
-* 		</dl>
 **/
 
-public interface NInterface {
+public interface NInterface extends Data{
+	
+	/** @preconditie  -
+	 *	@postconditie - //Dummy '0'
+	 */
+	public N init();
+	
+	/** @preconditie  -
+	 *	@postconditie -
+	 */
+	public void addChar(char c);
+	
+	/** @preconditie  -
+	 *	@postconditie - 
+	 */
+	public char getChar(int index);
+
+	/** @preconditie  -
+	 *	@postconditie - 
+	 */
+	public int getLength();
 	
 	/** @preconditie  -
 	 *	@postconditie - A deep-copy of N has been returned.
 	 **/
 	public N clone ();
+
+	/** @preconditie  -
+	 *	@postconditie - 
+	 **/
+	public int compareTo(N n);
+	
+	
 }
