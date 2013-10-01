@@ -1,6 +1,6 @@
 package assignment2;
 
-public class KeyValuePair<K extends Data, V extends Clonable> {
+public class KeyValuePair<K extends Data, V extends Clonable> /*Extends Data?*/ {
 	
 	//Identifier
 	//Set?
