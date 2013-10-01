@@ -36,6 +36,8 @@ public class Table<K extends Data, V extends Clonable> implements TableInterface
 	}
 	
 	public Table<K,V> clone () {
-		return this.clone(); // Lol
+		Table<K,V> t = new Table<K,V>();
+		t.list = list.clone();
+		return t;
 	}
 }

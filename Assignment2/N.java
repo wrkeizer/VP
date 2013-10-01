@@ -55,4 +55,22 @@ public class N implements NInterface{
 			return 0;
 		}		
 	}	
+	public int compareTo(Object o){
+		N n = (N) o;
+		if(getLength() < n.getLength()){
+			return -1;
+		}else if(getLength() > n.getLength()){
+			return 1;
+		}else{
+			
+			for(int i = 0; i < getLength(); i++){
+				if(getChar(i) < n.getChar(i)){
+					return -1;
+				}else if(getChar(i) > n.getChar(i)){
+					return 1;
+				}
+			}
+			return 0;
+		}		
+	}	
 }
