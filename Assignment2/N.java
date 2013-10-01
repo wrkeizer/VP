@@ -9,7 +9,9 @@ public class N implements NInterface{
 	}
 	
 	public N init(){
-		return new N(0);
+		s.delete(0, getLength());
+		s.insert(0, 0);
+		return this;
 	}
 	
 	public void addChar(char c){
