@@ -23,12 +23,12 @@ package assignment2;
 public interface NInterface extends Data{
 	
 	/** @preconditie  -
-	 *	@postconditie - The content of the new N object is a dummy character '0'.
+	 *	@postconditie - The content of the new N object is a dummy character.
 	 */
 	public N init();
 	
 	/** @preconditie  -
-	 *	@postconditie - c is added to the StringBuffer.
+	 *	@postconditie - c is added to the String.
 	 *		
 	 */
 	public void addChar(char c);
@@ -39,7 +39,7 @@ public interface NInterface extends Data{
 	public char getChar(int index);
 
 	/** @preconditie  -
-	 *	@postconditie - The length of the StringBuffer is returned.
+	 *	@postconditie - The length of the String is returned.
 	 */
 	public int getLength();
 	
@@ -49,7 +49,7 @@ public interface NInterface extends Data{
 	public N clone ();
 
 	/** @preconditie  -
-	 *	@postconditie - Returns -1 if the value of n is smaller than the value of this object,
+	 *	@postconditie - Returns -1 if the value of this object is smaller than the value of n,
 	 *					0 if they're equal,
 	 *					and 1 if the value of this object is larger.
 	 **/
