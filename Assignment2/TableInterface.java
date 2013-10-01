@@ -21,7 +21,7 @@ public interface TableInterface<K extends Data, V extends Clonable> extends Clon
 	/** @preconditie  - 
 	 *	@postconditie - Table-POST is empty and has been returned.
 	 **/
-	Table init ();
+	Table<K,V> init ();
 
 	/**	@preconditie  -
 	 *	@postconditie - The number of elements has been returned.
@@ -43,6 +43,6 @@ public interface TableInterface<K extends Data, V extends Clonable> extends Clon
 	/** @preconditie  -
 	 *	@postconditie - A deep-copy of table has been returned.
 	 **/
-	public Table clone ();
+	public Table<K,V> clone ();
 	
 }
