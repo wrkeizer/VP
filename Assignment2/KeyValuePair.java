@@ -1,6 +1,9 @@
 package assignment2;
 
-public class KeyValuePair<K extends Data, V extends Clonable> /*Extends Data?*/ {
+public class KeyValuePair<K extends Data, V extends Clonable> implements Data {
+	
+	K k;
+	V v;
 	
 	//Identifier
 	//Set?
@@ -9,4 +12,11 @@ public class KeyValuePair<K extends Data, V extends Clonable> /*Extends Data?*/ 
 		
 	}
 	
+	public int compareTo (Object o) {
+		return -2;
+	}
+	
+	public KeyValuePair<K,V> clone(){ 
+		return this;
+	}
 }

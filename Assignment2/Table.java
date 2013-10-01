@@ -2,18 +2,19 @@ package assignment2;
 
 public class Table<K extends Data, V extends Clonable> implements TableInterface<K, V> {
 	
-	List<K> list;
+	List<KeyValuePair<K,V>> list;
 	
 	Table() {
-		list = new List<K>();
+		list = new List<KeyValuePair<K,V>>();
 	}
 	
 	public boolean isEmpty() {
 		return list.isEmpty();
 	}
 	
-	public Table init() {
-		
+	public Table<K,V> init() {
+		list = new List<KeyValuePair<K,V>>();
+		return this;
 	}
 	
 	public int getSize () {
@@ -21,14 +22,20 @@ public class Table<K extends Data, V extends Clonable> implements TableInterface
 	}
 	
 	public void insert (K k, V v) {
-		
+		list.insert(new KeyValuePair<K,V>(k, v));
 	}
 	
 	public V retrieve (K k) {
-		
+		list.setFirst();
+		do {
+			if (list.retrieve().k.compareTo(k) == 0) {
+				return list.retrieve().v;
+			}
+		} while (list.getNext());
+		return null;
 	}
 	
-	public Table clone () {
-		
+	public Table<K,V> clone () {
+		return this.clone(); // Lol
 	}
 }
