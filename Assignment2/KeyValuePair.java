@@ -23,12 +23,7 @@ public class KeyValuePair<K extends Data, V extends Clonable> implements Data {
 	
 	public int compareTo (Object o) {
 		KeyValuePair<K,V> kvp = (KeyValuePair<K,V>) o;
-		if(k.compareTo(kvp.getKey()) == -1){
-			return -1;
-		}else if(k.compareTo(kvp.getKey()) == 1){
-			return 1;
-		}
-		return 0;
+		return k.compareTo(kvp.getKey());
 	}
 	
 	public KeyValuePair<K,V> clone(){ 

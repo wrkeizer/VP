@@ -1,4 +1,4 @@
-package assignment1;
+package assignment2;
 
 /** ADT voor de class Verzameling.
  *
