@@ -28,8 +28,6 @@ public class Main {
 	}
 	
 	private boolean leesSetIn(Set v, Scanner in) {
-		int counter = 0; 
-		
 		removeWhitespace(in);
 		if(!nextCharIs(in, '{')){
 			if (nextCharIsNewLine(in)) {
@@ -61,12 +59,11 @@ public class Main {
 				return false;
 			}
 			v.addElement(id); // add identifier to set
-			counter++;
-			if (counter > MAX_NUMBER_OF_IDENTIFIERS_INPUT) {
+			if (v.getSize() > MAX_NUMBER_OF_IDENTIFIERS_INPUT) {
 				System.out.println("The set contains too much elements.");
 				in.nextLine();//Bethlehem insert
 				return false;
-			}			
+			}
 			removeWhitespace(in);
 		}
 		
