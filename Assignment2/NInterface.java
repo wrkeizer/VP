@@ -24,13 +24,13 @@ package assignment2;
 
 public interface NInterface extends Data{
 	
-	/** @preconditie  -
+	/** @preconditie  - c is valid.
 	 *	@postconditie - The N object is initialized to contain a placeholder value and has been returned.
 	 */
-	public N init();
+	public N init(char c);
 	
-	/** @preconditie  -
-	 *	@postconditie - c has been added to the String.
+	/** @preconditie  - c is valid.
+	 *	@postconditie - c has been added.
 	 *		
 	 */
 	public void addChar(char c);
@@ -41,7 +41,7 @@ public interface NInterface extends Data{
 	public char getChar(int index);
 
 	/** @preconditie  -
-	 *	@postconditie - The length of the String has been returned.
+	 *	@postconditie - The numbers of characters has been returned.
 	 */
 	public int getLength();
 	

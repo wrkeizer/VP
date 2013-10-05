@@ -6,19 +6,17 @@ public class N implements NInterface{
 	
 	N() {
 		s = new StringBuffer();
-		init();
+		init('0');
 	}
 	
-	public N init(){
+	public N init(char c){
 		s.delete(0, s.length());
-		s.append("0");
+		s.append(c);
 		return this;
 	}
 	
 	public void addChar(char c){
-		if(s.charAt(0) == 0){
-			s.insert(0, c);
-		}else s.append(c);
+		s.append(c);
 	}
 	
 	public char getChar(int index){
@@ -58,20 +56,6 @@ public class N implements NInterface{
 	}	
 	public int compareTo(Object o){
 		N n = (N) o;
-		if(getLength() < n.getLength()){
-			return -1;
-		}else if(getLength() > n.getLength()){
-			return 1;
-		}else{
-			
-			for(int i = 0; i < getLength(); i++){
-				if(getChar(i) < n.getChar(i)){
-					return -1;
-				}else if(getChar(i) > n.getChar(i)){
-					return 1;
-				}
-			}
-			return 0;
-		}		
+		return compareTo(n);		
 	}	
 }
