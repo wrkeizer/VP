@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 	
-	public static final int MAX_AANTAL_IDENTIFIERS_INPUT = 10;
+	public static final int MAX_NUMBER_OF_IDENTIFIERS_INPUT = 10;
 	
 	Scanner in;
 	
@@ -27,14 +27,16 @@ public class Main {
 		return id;
 	}
 	
-	private boolean leesVerzamelingIn(Verzameling v, Scanner in) {
+	private boolean leesSetIn(Set v, Scanner in) {
+		int counter = 0; 
+		
 		removeWhitespace(in);
 		if(!nextCharIs(in, '{')){
 			if (nextCharIsNewLine(in)) {
 				in.nextLine();//Keizer insert
 				return false;
 			}
-			System.out.println("Verzameling moet beginnen met een '{'.");
+			System.out.println("Set should start with a '{'.");
 			in.nextLine();//Bethlehem insert
 			return false;
 		}
@@ -43,27 +45,28 @@ public class Main {
 
 		while(nextCharIs(in, '}') == false) { // read in identifiers
 			if (!nextCharIsLetter(in)) {
-				System.out.println("Identifier moet beginnen met een letter.");
+				System.out.println("Identifier should start with a letter.");
 				in.nextLine();//Bethlehem insert
 				return false;
 			}
 			Identifier id = readIdentifier(in); // read in individual identifier
 			if(nextCharIsNewLine(in)){
-				System.out.println("De '}' ontbreekt.");
+				System.out.println("'}' Is missing.");
 				in.nextLine();//Bethlehem insert
 				return false;
 			}
 			if (!(nextCharIsSpace(in) || nextCharIs(in, '}'))) {
-				System.out.println("Identifier mag alleen bestaan uit letters en cijfers.");
+				System.out.println("Identifier can only exist out of letters and numbers.");
 				in.nextLine();//Bethlehem insert
 				return false;
 			}
 			v.addElement(id); // add identifier to set
-			if (v.getSize() > MAX_AANTAL_IDENTIFIERS_INPUT) {
-				System.out.println("De verzameling bevat teveel elementen.");
+			counter++;
+			if (counter > MAX_NUMBER_OF_IDENTIFIERS_INPUT) {
+				System.out.println("The set contains too much elements.");
 				in.nextLine();//Bethlehem insert
 				return false;
-			}
+			}			
 			removeWhitespace(in);
 		}
 		
@@ -74,7 +77,7 @@ public class Main {
 			return true;
 		}
 		
-		System.out.println("Er staan tekens buiten de verzameling.");
+		System.out.println("There are characters outside of the set.");
 		in.nextLine();//Bethlehem insert
 		return false;
 	}
@@ -106,7 +109,7 @@ public class Main {
 		return in.hasNext(Pattern.quote(c+""));
 	}
 	
-	private void print(Verzameling v, String s){
+	private void print(Set v, String s){
 		System.out.print(s + ": {");
 		while(v.getSize() > 0){
 			Identifier id = v.someElement();
@@ -123,32 +126,32 @@ public class Main {
 		System.out.println('}');
 	}
 	
-	private boolean vraagVerzameling(String s, Verzameling v) {		
-		do { //lees verzameling in
+	private boolean vraagSet(String s, Set v) {		
+		do { //read set
 			v.init();
 			System.out.print(s);
 			if (in.hasNext() == false) {
 				in.close();
 				return false;
 			}
-		} while (leesVerzamelingIn(v, in) == false);
+		} while (leesSetIn(v, in) == false);
 		
 		return true;
 		
 	}
 	
-	private boolean vraagInvoer(Verzameling v1, Verzameling v2) {
-		return vraagVerzameling("Geef eerste verzameling: ", v1) && vraagVerzameling("Geef tweede verzameling: ", v2);
+	private boolean vraagInvoer(Set v1, Set v2) {
+		return vraagSet("Give first set: ", v1) && vraagSet("Give second set: ", v2);
 	}
 	
 	private void start(){
-		Verzameling v1 = new Verzameling(),
-					v2 = new Verzameling();
+		Set v1 = new Set(),
+					v2 = new Set();
 		while(vraagInvoer(v1, v2)){
-			print(v1.verschil(v2), "Verschil");
-			print(v1.doorsnede(v2), "Doorsnede");
-			print(v1.vereniging(v2), "Vereniging");
-			print(v1.symmetrischVerschil(v2), "Symmetrisch verschil");
+			print(v1.difference(v2), "Difference");
+			print(v1.intersection(v2), "Intersection");
+			print(v1.union(v2), "Union");
+			print(v1.symmetricDifference(v2), "Symmetric difference");
 			System.out.println();
 		}
 	}

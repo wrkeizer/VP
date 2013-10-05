@@ -1,4 +1,4 @@
-package assignment1;
+package assignment2;
 
 /** ADT for the class Identifier.
  *
