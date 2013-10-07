@@ -143,7 +143,7 @@ public class Main {
 	
 	private void start(){
 		Set v1 = new Set(),
-					v2 = new Set();
+			v2 = new Set();
 		while(vraagInvoer(v1, v2)){
 			print(v1.difference(v2), "Difference");
 			print(v1.intersection(v2), "Intersection");

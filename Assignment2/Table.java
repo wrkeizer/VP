@@ -28,8 +28,8 @@ public class Table<K extends Data, V extends Clonable> implements TableInterface
 	public V retrieve (K k) {
 		list.setFirst();
 		do {
-			if (list.retrieve().k.compareTo(k) == 0) {
-				return list.retrieve().v;
+			if (list.retrieve().getKey().compareTo(k) == 0) {
+				return list.retrieve().getValue();
 			}
 		} while (list.getNext());
 		return null;
