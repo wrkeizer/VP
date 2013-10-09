@@ -1,5 +1,6 @@
 package assignment2;
 
+import java.io.InputStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -51,21 +52,7 @@ public class Main {
 		return id;
 	}
 	
-	private Set readSet(Scanner in) {
-		Set set = new Set();
-		removeWhitespace(in);
-		if(!nextCharIs(in, '{')){
-			if (nextCharIsNewLine(in)) {
-				in.nextLine();//Keizer insert
-				//Foutmelding
-			}
-			System.out.println("Set should start with a '{'.");
-			in.nextLine();//Bethlehem insert
-			//Foutmelding
-		}
-		in.next(); // Get rid of '{'
-		removeWhitespace(in);
-
+	private void readIdentifiers(Set set, Scanner in) {
 		while(nextCharIs(in, '}') == false) { // read in identifiers
 			if (!nextCharIsLetter(in)) {
 				System.out.println("Identifier should start with a letter.");
@@ -89,6 +76,24 @@ public class Main {
 			}
 			set.addElement(id); // add identifier to set
 		}
+	}
+	
+	private Set readSet(Scanner in) {
+		Set set = new Set();
+		removeWhitespace(in);
+		if(!nextCharIs(in, '{')){
+			if (nextCharIsNewLine(in)) {
+				in.nextLine();//Keizer insert
+				//Foutmelding
+			}
+			System.out.println("Set should start with a '{'.");
+			in.nextLine();//Bethlehem insert
+			//Foutmelding
+		}
+		in.next(); // Get rid of '{'
+		removeWhitespace(in);
+		
+		readIdentifiers(set, in);
 		
 		in.next(); // Lose the '}'
 		removeWhitespace(in);
@@ -121,24 +126,24 @@ public class Main {
 		//Whatever comes after the '=' sign should result in a set.
 	}
 	
-	private void readLine(){
+	private void readLine(Scanner line){
 		//Reads a single line from the program.
 		//Empty line
-		if(nextCharIsNewLine(in)){
-			in.nextLine();
+		if(nextCharIsNewLine(line)){
+			line.nextLine();
 			//Foutmelding
 		}
 		// '/' Comment 
-		if(nextCharIs(in, '/')){
-			in.nextLine();
+		if(nextCharIs(line, '/')){
+			line.nextLine();
 			return;
 		}
 		// '?' Print statement -> Identifier or expression
-		if(nextCharIs(in, '?')){
-			removeWhitespace(in);
-			if (!nextCharIsLetter(in)) {
+		if(nextCharIs(line, '?')){
+			removeWhitespace(line);
+			if (!nextCharIsLetter(line)) {
 				System.out.println("Identifier should start with a letter.");
-				in.nextLine();//Bethlehem insert
+				line.nextLine();//Bethlehem insert
 				//Foutmelding
 			}
 			//If single Identifier: Print value with key Identifier
@@ -152,7 +157,7 @@ public class Main {
 
 	private void start(){
 		while(in.hasNext()){
-			readLine();
+			readLine(new Scanner(in.nextLine()));
 		}
 	}
 	
