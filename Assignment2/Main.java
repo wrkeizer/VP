@@ -52,27 +52,37 @@ public class Main {
 		return id;
 	}
 	
-	private void readIdentifiers(Set set, Scanner line) throws APException{
-		while(nextCharIs(in, '}') == false) { // read in identifiers
+	private Identifier readNaturalNumber(Scanner in) {
+		Identifier id = new Identifier();
+		id.init(nextChar(in));
+		while (nextCharIsDigit(in)) {
+			id.addChar(nextChar(in));
+		}
+		return id;
+	}
+	
+	private void readNumbers(Set set, Scanner line) throws APException{
+		//Reads in a bunch of numbers.
+		//NB: Identifiers only consists of digits, not letters.
+		while(!nextCharIs(in, '}')) {
 			if (!nextCharIsDigit(line)) {
 				line.nextLine();
-				throw new APException("Foutmelding");
+				throw new APException("Elements of a set can only be natural numbers.");
 			}
-			Identifier id = readIdentifier(in); // read in individual identifier
-			removeWhitespace(in);
-			if(nextCharIsNewLine(in)){
-				System.out.println("'}' Is missing.");
-				in.nextLine();//Bethlehem insert
-				throw new APException("Foutmelding");
+			Identifier id = readNaturalNumber(line); // read in individual identifier
+			removeWhitespace(line);
+			if(nextCharIs(line, ',')){
+				line.next(); //Read away ','
 			}
-			if (!(nextCharIs(in, ',') || nextCharIs(in, '}'))) {
-				System.out.println("Identifier can only exist out of letters and numbers.");
-				in.nextLine();//Bethlehem insert
-				throw new APException("Foutmelding");
+			if(nextCharIsNewLine(line)){
+				line.nextLine();
+				throw new APException("'}' Is missing.");
 			}
-			if(nextCharIs(in, ',')){
-				in.next(); //Read away ','
+			if (!(nextCharIs(line, ',') || nextCharIs(line, '}'))) {
+				line.nextLine();
+				throw new APException("Identifier can only exist out of letters and numbers.");
 			}
+			
 			set.addElement(id); // add identifier to set
 		}
 	}
@@ -89,7 +99,7 @@ public class Main {
 		removeWhitespace(line);
 		if(!nextCharIsNewLine(line)) {
 			line.nextLine();
-			throw new APException("Foutmelding");
+			throw new APException("False input. There are characters outside of the set.");
 		}
 		
 		line.nextLine();
@@ -111,7 +121,7 @@ public class Main {
 		removeWhitespace(in);
 		if(!nextCharIsNewLine(in)) {
 			line.nextLine();
-			throw new APException("Foutmelding");
+			throw new APException("False input. There are characters outside of the complex factor.");
 		}
 		
 		line.nextLine();
@@ -132,7 +142,7 @@ public class Main {
 			set = readSet(line);
 		}else{
 			line.nextLine();
-			throw new APException("Foutmelding");
+			throw new APException("False input. Identifier, complex factor or set expected.");
 		}
 		line.nextLine();
 		return set;
@@ -151,7 +161,7 @@ public class Main {
 				set.intersection(readTerm(line));
 			}else{
 				line.nextLine();
-				throw new APException("Foutmelding");
+				throw new APException("False input. Multiplicative operator expected.");
 			}
 		}
 		return set;
@@ -176,7 +186,7 @@ public class Main {
 				set.symmetricDifference(readTerm(line));
 			}else{
 				line.nextLine();
-				throw new APException("Foutmelding");
+				throw new APException("False input. Additive operator expected.");
 			}
 		}
 		return set;
@@ -194,7 +204,7 @@ public class Main {
 			//Add id and set to keyvaluepair and node and list and table and whatever.
 		}else{
 			line.nextLine();
-			throw new APException("Foutmelding");
+			throw new APException("False input. Expression expected.");
 		}		
 	}
 	
@@ -204,7 +214,7 @@ public class Main {
 		//Empty line
 		if(nextCharIsNewLine(line)){
 			line.nextLine();
-			throw new APException("Foutmelding");
+			throw new APException("Empty statement.");
 		}else if(nextCharIsLetter(line)){
 			// Assignment
 			readAssignment(line);
@@ -218,7 +228,7 @@ public class Main {
 			//Print set
 		}else {
 			line.nextLine();
-			throw new APException("Foutmelding");
+			throw new APException("False input. Statement should be an assignment, comment or print statement.");
 		}
 	}
 
@@ -228,7 +238,7 @@ public class Main {
 				readStatement(new Scanner(in.nextLine()));
 			}
 			catch(APException e){
-				System.out.println(e.getLocalizedMessage());
+				System.out.println(e.getMessage());
 			}
 		}
 	}
