@@ -45,17 +45,30 @@ public class Main {
 		return in.hasNext(Pattern.quote(c+""));
 	}
 	
-	private Identifier readIdentifier(Scanner in) {
+	private Identifier readIdentifier(Scanner in) throws APException{
 		Identifier id = new Identifier();
+		if(!nextCharIsLetter(in)){
+			in.nextLine();
+			throw new APException("Identifier should start with a letter.");
+		}
 		id.init(nextChar(in));
-		while (nextCharIsLetter(in) || nextCharIsDigit(in)) {
-			id.addChar(nextChar(in));
+		while (!nextCharIsSpace(in)) {
+			if(nextCharIsLetter(in) || nextCharIsDigit(in)){
+				id.addChar(nextChar(in));
+			}else{
+				in.nextLine();
+				throw new APException("Identifier can only consist of letters and numbers.");
+			}
 		}
 		return id;
 	}
 	
-	private Identifier readNaturalNumber(Scanner in) {
+	private Identifier readNaturalNumber(Scanner in) throws APException{
 		Identifier id = new Identifier();
+		if(nextCharIs(in, '0')){
+			in.nextLine();
+			throw new APException("Number cannot start with a '0'.");
+		}
 		id.init(nextChar(in));
 		while (nextCharIsDigit(in)) {
 			id.addChar(nextChar(in));
@@ -204,6 +217,7 @@ public class Main {
 			removeWhitespace(line);
 			Set set = readExpression(line);
 			//Add id and set to keyvaluepair and node and list and table and whatever.
+			//Table.add(id, set); //Bethlehem insert
 		}else{
 			line.nextLine();
 			throw new APException("False input. Expression expected.");
