@@ -1,25 +1,35 @@
 package assignment2;
 
 import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Main {
 	
 	Scanner in;
+	PrintStream out;
 	
 	Main(){
 		in = new Scanner(System.in);
 		in.useDelimiter("");
+		out = new PrintStream(System.out);
 	}
 	
-	private char nextChar(Scanner in){
+	private char nextChar(Scanner in){ //Delimiter needs to be "" empty string
 		return in.next().charAt(0);
 	}
 	
 	private void removeWhitespace(Scanner in) {
 		while (nextCharIsSpace(in)) {
 			in.next(); // Read away space
+		}
+	}
+	
+	private void removeNewLines(Scanner in) {
+		while (nextCharIsNewLine(in)) {
+			in.next();
 		}
 	}
 	
@@ -203,32 +213,40 @@ public class Main {
 			Set set = readExpression(line);
 			//Add id and set to keyvaluepair and node and list and table and whatever.
 		}else{
-			line.nextLine();
+			//W// line.nextLine(); haha faal
 			throw new APException("False input. Expression expected.");
 		}		
 	}
 	
 	private void readStatement(Scanner line) throws APException{
 		//Reads a single statement from the program.
-		removeWhitespace(line);
+		line.useDelimiter(""); //fuckya
+		
+		removeWhitespace(line); //ignore spaces
+		
 		//Empty line
-		if(nextCharIsNewLine(line)){
-			line.nextLine();
+		if(!line.hasNext()){
 			throw new APException("Empty statement.");
-		}else if(nextCharIsLetter(line)){
+		}
+		
+		if(nextCharIs(line, '/')){
+			// Comment
+			return;
+		}
+		
+		if(nextCharIs(line, '?')){
+			//Print-statement
+			Set set = readExpression(line);
+			// Print set
+			return;
+		}
+		
+		if(nextCharIsLetter(line)){
 			// Assignment
 			readAssignment(line);
-		}else if(nextCharIs(line, '/')){
-			// Comment
-			line.nextLine();
-			return;
-		}else if(nextCharIs(line, '?')){
-			// Print statement
-			Set set = readExpression(line);
-			//Print set
-		}else {
-			line.nextLine();
-			throw new APException("False input. Statement should be an assignment, comment or print statement.");
+		} else {
+//			line.nextLine();
+			throw new APException("False input. Statement should be an assignment, comment or print statement." + line.nextLine());
 		}
 	}
 
@@ -239,6 +257,7 @@ public class Main {
 			}
 			catch(APException e){
 				System.out.println(e.getMessage());
+//				e.printStackTrace();
 			}
 		}
 	}
