@@ -1,16 +1,18 @@
 package assignment2;
 
-import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Main {
 	
 	Scanner in;
+	PrintStream out;
 	
 	Main(){
 		in = new Scanner(System.in);
 		in.useDelimiter("");
+		out = new PrintStream(System.out);
 	}
 	
 	private char nextChar(Scanner in){
@@ -238,7 +240,7 @@ public class Main {
 				readStatement(new Scanner(in.nextLine()));
 			}
 			catch(APException e){
-				System.out.println(e.getMessage());
+				out.println(e.getMessage());
 			}
 		}
 	}
