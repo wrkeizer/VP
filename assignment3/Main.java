@@ -19,18 +19,10 @@ public class Main {
 		return in.next().charAt(0);
 	}
 	
-	private void removeWhitespace(Scanner in) {
-		while (nextCharIsSpace(in)) {
-			in.next(); // Read away space
+	private void removeSeparators(Scanner in){
+		while(nextCharIsSeparator(in)){
+			in.next(); // Read away separator
 		}
-	}
-	
-	private boolean nextCharIsSpace (Scanner in) {
-		return in.hasNext(" ");
-	}
-	
-	private boolean nextCharIsNewLine(Scanner in) {
-		return nextCharIs(in, '\n') || nextCharIs(in, '\r');
 	}
 	
 	private boolean nextCharIsDigit (Scanner in) {
@@ -45,30 +37,21 @@ public class Main {
 		return in.hasNext(Pattern.quote(c+""));
 	}
 	
-	private Identifier readIdentifier(Scanner in) throws APException{
+	private boolean nextCharIsSeparator(Scanner in){
+		return !(nextCharIsLetter(in) || nextCharIsDigit(in));
+	}
+	
+	private Identifier readIdentifier(Scanner in){
 		Identifier id = new Identifier();
-		if(!nextCharIsLetter(in)){
-			in.nextLine();
-			throw new APException("Identifier should start with a letter.");
-		}
 		id.init(nextChar(in));
-		while (!nextCharIsSpace(in)) {
-			if(nextCharIsLetter(in) || nextCharIsDigit(in)){
-				id.addChar(nextChar(in));
-			}else{
-				in.nextLine();
-				throw new APException("Identifier can only consist of letters and numbers.");
-			}
+		while (!nextCharIsSeparator(in)) {
+			id.addChar(nextChar(in));
 		}
 		return id;
 	}
 	
-	private Identifier readNaturalNumber(Scanner in) throws APException{
+	private Identifier readNaturalNumber(Scanner in){
 		Identifier id = new Identifier();
-		if(nextCharIs(in, '0')){
-			in.nextLine();
-			throw new APException("Number cannot start with a '0'.");
-		}
 		id.init(nextChar(in));
 		while (nextCharIsDigit(in)) {
 			id.addChar(nextChar(in));
@@ -76,8 +59,35 @@ public class Main {
 		return id;
 	}
 	
+	BinaryTree<E> readFile(String file) throws APException{
+		BinaryTree<E> identifiers = new BinaryTree<E>();
+		while(in.hasNext()){
+			removeSeparators(in);
+			
+			if(nextCharIsLetter(in)){
+				identifiers.add(readIdentifier(in));
+			}else {
+				readNaturalNumber(in);
+				if(!nextCharIsSeparator(in)){
+					throw new APException("Number should be followed by a separator.");
+				}
+			}			
+		}
+		return identifiers;
+	}
+	
 	void start(String[] args){
-		
+		BinaryTree<E>[] files = new BinaryTree<E>[args.length];
+		for(int i = 0; i < args.length; i++){
+			try{
+				files[i] = readFile(args[i]);
+			}
+			catch(APException e){
+				out.println(e.getMessage());
+				System.exit(1); // This program should quit in case of an error right?
+//				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static void main(String[] args) {

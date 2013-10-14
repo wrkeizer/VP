@@ -1,4 +1,4 @@
-package assignment2;
+package assignment3;
 
 public class Identifier implements IdentifierInterface{
 	
@@ -46,10 +46,5 @@ public class Identifier implements IdentifierInterface{
 		}
 		
 		return true;
-	}
-    
-    public int hashCode() {
-    	return name.hashCode();
-    }
-    
+	}    
 }
