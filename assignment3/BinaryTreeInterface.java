@@ -10,7 +10,7 @@ package assignment3;
  *	Binary tree
  * @domein
  *	Each node in the tree has two children. 
- *	The value of left child's data is less than the parent's, while the right's is equal or greater to the parent's.
+ *	The value of left child's data is less than the parent's data, while the right's is equal or greater to the parent's.
  *
  * @constructor
  *	BinaryTree();

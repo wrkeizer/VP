@@ -33,17 +33,17 @@ public class List<E extends Data> implements ListInterface<E> {
 	
 	public List<E> insert(E d){
 		if (setFirst() == false) { // Insert in empty list
-			first = last = current = new Node<E>(d);
+			first = last = current = new Node<E>((E) d.clone());
 		} else {
 			while(d.compareTo(current.data) < 1) {
 				if (getNext() == false) { // Insert at end of list
-					last = current = new Node<E>(d, last, null);
+					last = current = new Node<E>((E) d.clone(), last, null);
 					current.prior.next = current;
 					return this;
 				}
 			}
 			// Insert before current
-			current = new Node<E>(d, current.prior, current);
+			current = new Node<E>((E) d.clone(), current.prior, current);
 			current.prior.next = current;
 			current.next.prior = current;
 		}
