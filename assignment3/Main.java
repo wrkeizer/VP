@@ -33,10 +33,6 @@ public class Main {
 		return in.hasNext("[a-zA-Z]");
 	}
 	
-	private boolean nextCharIs(Scanner in, char c) {
-		return in.hasNext(Pattern.quote(c+""));
-	}
-	
 	private boolean nextCharIsSeparator(Scanner in){
 		return !(nextCharIsLetter(in) || nextCharIsDigit(in));
 	}

@@ -22,7 +22,7 @@ package assignment3;
  *	<br>
  **/
 
-public interface BinaryTreeInterface<E extends Data> {
+public interface BinaryTreeInterface<E extends Data>{
 	/**
 	 * @preconditie  -
 	 * @postconditie - 	The tree is initialized to be empty and has been returned.
@@ -50,8 +50,4 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * 					FALSE: BinaryTree does not contain a copy of d.
 	 **/
 	boolean contains(E d);
-	/*
-	 * ascendingIterator();
-	 * descendingIterator();
-	 */
 }
