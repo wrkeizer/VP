@@ -6,16 +6,16 @@ import java.util.regex.Pattern;
 
 public class Main {
 	
-	Scanner in;
+	Scanner programScanner;
 	PrintStream out;
 	
 	Main(){
-		in = new Scanner(System.in);
-		in.useDelimiter("");
+		programScanner = new Scanner(System.in);
+		programScanner.useDelimiter("");
 		out = new PrintStream(System.out);
 	}
 	
-	private char nextChar(Scanner in){ //Delimiter needs to be "" empty string
+	private char nextChar(Scanner in){ //--> Delimiter needs to be "" empty string
 		return in.next().charAt(0);
 	}
 	
@@ -25,14 +25,12 @@ public class Main {
 		}
 	}
 	
-	private void removeNewLines(Scanner in) {
-		while (nextCharIsNewLine(in)) {
-			in.next();
-		}
-	}
-	
 	private boolean nextCharIsSpace (Scanner in) {
 		return in.hasNext(" ");
+	}
+	
+	private boolean nextCharIsAdditiveOperator(Scanner in) {
+		return nextCharIs(in, '+') || nextCharIs(in, '-') || nextCharIs(in, '|');
 	}
 	
 	private boolean nextCharIsNewLine(Scanner in) {
@@ -53,31 +51,33 @@ public class Main {
 	
 	private Identifier readIdentifier(Scanner in) throws APException{
 		Identifier id = new Identifier();
+		removeWhitespace(in);
 		if(!nextCharIsLetter(in)){
-			in.nextLine();
 			throw new APException("Identifier should start with a letter.");
 		}
 		id.init(nextChar(in));
-		while (!nextCharIsSpace(in)) {
-			if(nextCharIsLetter(in) || nextCharIsDigit(in)){
-				id.addChar(nextChar(in));
-			}else{
-//				in.nextLine();
-				if(!in.hasNext()) {
-					throw new APException("Expect summ else.");
-				}
-				throw new APException("Identifier can only consist of letters and numbers.");
-			}
+		while (nextCharIsLetter(in) || nextCharIsDigit(in)) {
+			id.addChar(nextChar(in));
 		}
 		return id;
 	}
 	
 	private Identifier readNaturalNumber(Scanner in) throws APException{
 		Identifier id = new Identifier();
-		if(nextCharIs(in, '0')){
-			in.nextLine();
-			throw new APException("Number cannot start with a '0'.");
+		
+		removeWhitespace(in);
+		if(!nextCharIsDigit(in)){
+			throw new APException("Natural numbers should start with a digit");
 		}
+		
+		if(nextCharIs(in, '0')){
+			id.init(nextChar(in));
+			if(!nextCharIsDigit(in)){
+				return id;
+			}
+			throw new APException("Non-zero numbers must not start with '0'.");
+		}
+		
 		id.init(nextChar(in));
 		while (nextCharIsDigit(in)) {
 			id.addChar(nextChar(in));
@@ -85,194 +85,212 @@ public class Main {
 		return id;
 	}
 	
-	private void readNumbers(Set set, Scanner line) throws APException{
+	private Set readNumberSequence(Scanner in) throws APException{
 		//Reads in a bunch of numbers.
-		//NB: Identifiers only consists of digits, not letters.
-		while(!nextCharIs(in, '}')) {
-			if (!nextCharIsDigit(line)) {
-				line.nextLine();
-				throw new APException("Elements of a set can only be natural numbers.");
-			}
-			Identifier id = readNaturalNumber(line); // read in individual identifier
-			removeWhitespace(line);
-			if(nextCharIs(line, ',')){
-				line.next(); //Read away ','
-			}
-			if(nextCharIsNewLine(line)){
-				line.nextLine();
-				throw new APException("'}' Is missing.");
-			}
-			if (!(nextCharIs(line, ',') || nextCharIs(line, '}'))) {
-				line.nextLine();
-				throw new APException("Identifier can only exist out of letters and numbers.");
-			}
-			
-			set.addElement(id); // add identifier to set
+		
+		/*NB: ?Identifiers only consist of digits, not letters.*/
+		
+		Set set = new Set();
+		
+		removeWhitespace(in);
+		if(!nextCharIsDigit(in)){
+			return set;
 		}
+		set.addElement(readNaturalNumber(in));
+		
+		removeWhitespace(in);
+		while(nextCharIs(in, ',')) {
+			in.next(); //read away ','
+			removeWhitespace(in);
+			set.addElement(readNaturalNumber(in));
+			removeWhitespace(in);
+		}
+		
+		return set;
 	}
 	
-	private Set readSet(Scanner line) throws APException{
-		//This method can only be called if the next char is a '{'.
+	private Set readSet(Scanner in) throws APException{
 		//Reads a single set from the program.
-		line.next(); //Read away '{'
-		removeWhitespace(line);
-		Set set = new Set();		
-		readNumbers(set, line);
-		
-		line.next(); // Lose the '}'
-		removeWhitespace(line);
-		if(!nextCharIsNewLine(line)) {
-			line.nextLine();
-			throw new APException("False input. There are characters outside of the set.");
+		removeWhitespace(in);
+		if (!nextCharIs(in, '{')){
+			throw new APException("Set should start with '{'");
 		}
+		in.next(); //Read away '{'
 		
-		line.nextLine();
+		removeWhitespace(in);
+		Set set = readNumberSequence(in);
+		
+		removeWhitespace(in);
+		if (!nextCharIs(in, '}')){
+			throw new APException("Problem reading set: expected a number sequence followed by '}'");
+		}
+		in.next(); // Read away '}'
+		
 		return set;		
 	}
 	
-	private Set readComplexFactor(Scanner line) throws APException{
-		//This method can only be called if the next char is a '('.
+	private Set readComplexFactor(Scanner in) throws APException{
 		//Reads a single complex factor from the program.
-		line.next(); //Read away '('.
-		String complexFactor = "";
-		while(!nextCharIs(line, ')')){// <- Crashes in case of ((aap + noot) * mies) for example.
-			complexFactor += nextChar(line);
+		removeWhitespace(in);
+		if (!nextCharIs(in, '(')){
+			throw new APException("Complex factor should start with '('");
 		}
-		Scanner expression = new Scanner(complexFactor);
-		Set set = readExpression(expression);
-		line.next(); //Read away ')'.
+		in.next(); //Read away '('.
 		
 		removeWhitespace(in);
-		if(!nextCharIsNewLine(in)) {
-			line.nextLine();
-			throw new APException("False input. There are characters outside of the complex factor.");
+		Set set = readExpression(in);
+		
+		removeWhitespace(in);
+		if (!nextCharIs(in, ')')) {
+			throw new APException("Problem reading complex factor: expected an expression followed by ')'");
+		}
+		in.next(); //Read away ')'.
+		
+		return set;
+	}
+	
+	private Set readFactor(Scanner in) throws APException{
+		//Reads a single factor from the program.
+		
+		removeWhitespace(in);
+		if (!in.hasNext()) {
+			throw new APException("Factor should not be empty.");
 		}
 		
-		line.nextLine();
-		return set;
-	}
-	
-	private Set readFactor(Scanner line) throws APException{
-		//Reads a single factor from the program.
-		removeWhitespace(line);
-		Set set = new Set();
-		if(nextCharIsLetter(line)){
-			Identifier id = readIdentifier(line);
-			//set = set corresponding with id.
-			//If nonexistent, APException.
-		}else if(nextCharIs(line, '(')){
-			set = readComplexFactor(line);
-		}else if(nextCharIs(line, '{')){
-			set = readSet(line);
-		}else{
-			line.nextLine();
-			throw new APException("False input. Identifier, complex factor or set expected.");
+		if(nextCharIsLetter(in)){
+			Identifier id = readIdentifier(in);
+			
+			/*return set corresponding with id.
+			 *If nonexistent, APException.
+			 */
+			return new Set();
 		}
-		line.nextLine();
-		return set;
+
+		if(nextCharIs(in, '(')){
+			return readComplexFactor(in);
+		}
+		
+		if(nextCharIs(in, '{')){
+			return readSet(in);
+		}
+		
+		throw new APException("Factor must be an identifier, complex factor or set.");
 	}
 	
-	private Set readTerm(Scanner line) throws APException{
+	private Set readTerm(Scanner in) throws APException{
 		//Reads one or more factor(s), separated by a '*'.
 		removeWhitespace(in);
-		Set set = readFactor(line);
-		while(line.hasNext()){
-			removeWhitespace(line);
-			if(nextCharIsNewLine(line)){
-				line.nextLine();
-			}else if(nextCharIs(line, '*')){
-				line.next(); //Read away '*'.
-				set.intersection(readTerm(line));
-			}else{
-				line.nextLine();
-				throw new APException("False input. Multiplicative operator expected.");
-			}
+		if (!in.hasNext()) {
+			throw new APException("Term should not be empty.");
+		}
+		Set set = readFactor(in);
+		
+		removeWhitespace(in);
+		while(nextCharIs(in, '*')){
+			in.next(); //Read away '*'.
+			set = set.intersection(readFactor(in));
+			removeWhitespace(in);
 		}
 		return set;
 	}
 	
-	private Set readExpression(Scanner line) throws APException{
+	private Set readExpression(Scanner in) throws APException{
 		//Reads one or more term(s), separated by '+', '|' or '-' sign.
 		removeWhitespace(in);
-		Set set = readTerm(line);
-		while(line.hasNext()){
-			removeWhitespace(line);
-			if(nextCharIsNewLine(line)){
-				line.nextLine();
-			}else if(nextCharIs(line, '+')){
-				line.next(); //Read away '+'.
-				set.union(readTerm(line));
-			}else if(nextCharIs(line, '-')){
-				line.next(); //Read away '-'.
-				set.difference(readTerm(line));
-			}else if(nextCharIs(line, '|')){
-				line.next(); //Read away '|'.
-				set.symmetricDifference(readTerm(line));
-			}else{
-				line.nextLine();
-				throw new APException("False input. Additive operator expected.");
+		if (!in.hasNext()) {
+			throw new APException("Expression should not be empty.");
+		}
+		Set set = readTerm(in);
+		
+		removeWhitespace(in);
+		while(nextCharIsAdditiveOperator(in)){
+			if(nextCharIs(in, '+')){
+				in.next(); //Read away '+'.
+				removeWhitespace(in);
+				set = set.union(readTerm(in));
+			}else if(nextCharIs(in, '-')){
+				in.next(); //Read away '-'.
+				removeWhitespace(in);
+				set = set.difference(readTerm(in));
+			}else if(nextCharIs(in, '|')){
+				in.next(); //Read away '|'.
+				removeWhitespace(in);
+				set = set.symmetricDifference(readTerm(in));
 			}
+			removeWhitespace(in);
 		}
 		return set;
 	}
 	
-	private void readAssignment(Scanner line) throws APException{
-		//This method can only be called if the next char is a letter.
-		//Reads a single assignment from the program.
-		Identifier id = readIdentifier(line);	
-		removeWhitespace(line);
-		if(nextCharIs(line, '=')){
-			line.next(); //Read away '='
-			removeWhitespace(line);
-			Set set = readExpression(line);
-			//Add id and set to keyvaluepair and node and list and table and whatever.
-			//Table.add(id, set); //Bethlehem insert
+	private void readAssignment(Scanner in) throws APException{
+		//Reads a single assignment
+		removeWhitespace(in);
+		Identifier id = readIdentifier(in);
+		
+		removeWhitespace(in);
+		if(nextCharIs(in, '=')){
+			in.next(); //Read away '='
+			removeWhitespace(in);
+			Set set = readExpression(in);
+			if (in.hasNext()) {
+				throw new APException("Problem reading assignment: expected an expression followed by <eoln>");
+			}
+			
+			/*Add id and set to keyvaluepair and node and list and table and whatever.
+			 *Table.add(id, set);
+			 */
+			
 		}else{
-			//W// line.nextLine(); haha faal
-			throw new APException("False input. Expression expected.");
-		}		
+			throw new APException("Problem reading assignment: expected an identifier followed by '='");
+		}
 	}
 	
-	private void readStatement(Scanner line) throws APException{
-		//Reads a single statement from the program.
-		line.useDelimiter(""); //fuckya
+	private void readStatement(Scanner in) throws APException{
+		//Reads a single statement
+		in.useDelimiter(""); //<-- This is important
 		
-		removeWhitespace(line); //ignore spaces
+		removeWhitespace(in); //ignore spaces
 		
-		//Empty line
-		if(!line.hasNext()){
-			throw new APException("Empty statement.");
+		//Empty in
+		if(!in.hasNext()){
+			throw new APException("Statement should not be empty.");
 		}
 		
-		if(nextCharIs(line, '/')){
+		if(nextCharIs(in, '/')){
 			// Comment
 			return;
 		}
 		
-		if(nextCharIs(line, '?')){
-			//Print-statement
-			Set set = readExpression(line);
-			// Print set
+		if(nextCharIs(in, '?')){
+			//Print-statement ('?' + expression
+			in.next(); //read away '?'
+			removeWhitespace(in);
+			Set set = readExpression(in);
+			
+			removeWhitespace(in);
+			if (in.hasNext()) {
+				throw new APException("Problem reading print statement: expected an expression followed by <eoln>");
+			}
+			/* print set here */
+			
 			return;
 		}
 		
-		if(nextCharIsLetter(line)){
+		if(nextCharIsLetter(in)){
 			// Assignment
-			readAssignment(line);
+			readAssignment(in);
 		} else {
-//			line.nextLine();
-			throw new APException("False input. Statement should be an assignment, comment or print statement." + line.nextLine());
+			throw new APException("Statement must be an assignment, comment or print statement.");
 		}
 	}
 
 	private void start(){
-		while(in.hasNext()){
+		while(programScanner.hasNext()){
 			try{
-				readStatement(new Scanner(in.nextLine()));
+				readStatement(new Scanner(programScanner.nextLine()));
 			}
 			catch(APException e){
 				out.println(e.getMessage());
-//				e.printStackTrace();
 			}
 		}
 	}
