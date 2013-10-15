@@ -32,17 +32,11 @@ public interface TableInterface<K extends Data, V extends Clonable> extends Clon
 	 *	@postconditie - A key-value pair with key k and value v exists in Table-POST.
 	 *					If a key-value pair with key k existed in Table-PRE, it has been overwritten.
 	 **/
-	void insert (K k, V v);
-
-
+	void insert(K k, V v);
+	
 	/** @preconditie  - The table is not empty.
 	 *	@postconditie - A copy of the value corresponding to key k has been returned.
 	 */
 	V retrieve (K k);
-
-	/** @preconditie  -
-	 *	@postconditie - A deep-copy of table has been returned.
-	 **/
-	public Table<K,V> clone ();
 	
 }

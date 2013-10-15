@@ -104,10 +104,4 @@ public interface ListInterface<E extends Data> extends Clonable{
 	 */
 	boolean getPrior ();
 
-	/** @preconditie  -
-	 *	@postconditie - A deep-copy of list has been returned.
-	 **/
-	public List<E> clone ();
-
-
 }

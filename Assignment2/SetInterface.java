@@ -29,6 +29,7 @@ package assignment2;
      **/
     void init ();
 	
+    
 	/** Adds an element to the set.
      * @preconditie
      *	    -
@@ -36,8 +37,8 @@ package assignment2;
      *	    The set contains an element equal to d.
      **/
     void addElement(E d);
-
-
+    
+    
     /** Deletes an element from the set.
      * @preconditie
      *	    -
@@ -54,8 +55,8 @@ package assignment2;
      *	    A copy of one of the elements from the set has been returned.
      **/
     E someElement();
-
-
+    
+     
     /** Returns the number of elements in the set.
      * @preconditie
      *	    -

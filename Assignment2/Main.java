@@ -9,10 +9,13 @@ public class Main {
 	Scanner programScanner;
 	PrintStream out;
 	
+	Table<Identifier, Set<N>> table;
+	
 	Main(){
 		programScanner = new Scanner(System.in);
 		programScanner.useDelimiter("");
 		out = new PrintStream(System.out);
+		table = new Table<Identifier, Set<N>>();
 	}
 	
 	private char nextChar(Scanner in){ //--> Delimiter needs to be "" empty string
@@ -159,11 +162,12 @@ public class Main {
 		
 		if(nextCharIsLetter(in)){
 			Identifier id = readIdentifier(in);
+			Set<N> set = table.retrieve(id);
 			
-			/*return set corresponding with id.
-			 *If nonexistent, APException.
-			 */
-			return new Set<N>();
+			if(set == null){
+				throw new APException("Identifier is not associated with a set.");
+			}
+			return set;
 		}
 
 		if(nextCharIs(in, '(')){
@@ -239,9 +243,7 @@ public class Main {
 				throw new APException("Problem reading assignment: expected an expression followed by <eoln>");
 			}
 			
-			/*Add id and set to keyvaluepair and node and list and table and whatever.
-			 *Table.add(id, set);
-			 */
+			table.insert(id, set);
 			
 		}else{
 			throw new APException("Problem reading assignment: expected an identifier followed by '='");

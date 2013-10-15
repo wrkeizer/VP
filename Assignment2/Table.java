@@ -22,17 +22,33 @@ public class Table<K extends Data, V extends Clonable> implements TableInterface
 	}
 	
 	public void insert (K k, V v) {
+		if (find(k)){
+			list.remove();
+		}
 		list.insert(new KeyValuePair<K,V>(k, v));
 	}
 	
-	public V retrieve (K k) {
-		list.setFirst();
+	private boolean find(K k) {
+		if(!list.setFirst()){
+			return false;
+		}
 		do {
 			if (list.retrieve().getKey().compareTo(k) == 0) {
-				return list.retrieve().getValue();
+				return true;
 			}
 		} while (list.getNext());
-		return null;
+		return false;
+	}
+	
+	public V retrieve (K k) {
+		if(!find(k)){
+			return null;
+		}
+		return list.retrieve().getValue();
+	}
+	
+	public void remove(K k) {
+		
 	}
 	
 	public Table<K,V> clone () {
