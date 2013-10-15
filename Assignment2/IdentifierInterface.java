@@ -9,8 +9,8 @@ package assignment2;
  * @structuur
  *	Lineair
  * @domein
- *	All series of alfanumeric characters containig at least one character and starting with a letter.
- *
+ *	All rows of alfanumeric characters containig at least one character and starting with a letter.
+ * 
  * @constructor
  *	Identifier();
  *	    <dl>
@@ -19,15 +19,9 @@ package assignment2;
  *		Indentifier-object contains a dummy character.
  *	    </dl>
  *	<br>
- *	Identifier (Identifier src);
- *	    <dl>
- *		<dt><b>PRE-conditie</b><dd>-
- *		<dt><b>POST-conditie</b><dd>The new
- *		Identifier-object contains a copy of the contents of src.
- *	    </dl>
  **/
 
-public interface IdentifierInterface {
+public interface IdentifierInterface extends Data {
     
     /** Initializes the Identifier-object to an identifier with one character.
      * @preconditie
@@ -60,14 +54,5 @@ public interface IdentifierInterface {
      *	    The identifier's length has been returned.
     **/
     int getSize();
-
-    /** Returns whether the identifiers are equal to eachother.
-     * @preconditie
-     *	    - 
-     * @postconditie
-     *	    Returns false if the identifiers are not equal to eachother.
-     *		Returns true if the identifiers are equal to eachother.
-    **/
-    boolean equals(Identifier id);
     
 }

@@ -33,29 +33,16 @@ public interface NInterface extends Data{
 	 *	@postconditie - c has been added.
 	 *		
 	 */
-	public void addChar(char c);
+	public void addDigit(char c);
 	
 	/** @preconditie  -
 	 *	@postconditie - The character at index index has been returned.
 	 */
-	public char getChar(int index);
-
+	public char getDigit(int index);
+	
 	/** @preconditie  -
 	 *	@postconditie - The numbers of characters has been returned.
 	 */
 	public int getLength();
-	
-	/** @preconditie  -
-	 *	@postconditie - A deep-copy of N has been returned.
-	 **/
-	public N clone ();
-
-	/** @preconditie  -
-	 *	@postconditie - -1 Has been returned if the value of this object is smaller than the value of n,
-	 *					0 if they're equal,
-	 *					and 1 if the value of this object is larger.
-	 **/
-	public int compareTo(N n);
-	
 	
 }

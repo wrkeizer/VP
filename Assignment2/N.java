@@ -15,11 +15,11 @@ public class N implements NInterface{
 		return this;
 	}
 	
-	public void addChar(char c){
+	public void addDigit(char c){
 		s.append(c);
 	}
 	
-	public char getChar(int index){
+	public char getDigit(int index){
 		return s.charAt(index);
 	}
 	
@@ -28,34 +28,36 @@ public class N implements NInterface{
 	}
 	
 	public N clone(){
-		N copy = new N();
+		N clone = new N();
+		clone.init(getDigit(0));
 		
-		for(int i = 0; i < getLength(); i++){
-			copy.addChar(getChar(i));
+		for(int i = 1; i < getLength(); i++){
+			clone.addDigit(getDigit(i));
 		}
 		
-		return copy;
+		return clone;
 	}
 	
-	public int compareTo(N n){
-		if(getLength() < n.getLength()){
-			return -1;
-		}else if(getLength() > n.getLength()){
-			return 1;
-		}else{
-			
-			for(int i = 0; i < getLength(); i++){
-				if(getChar(i) < n.getChar(i)){
-					return -1;
-				}else if(getChar(i) > n.getChar(i)){
-					return 1;
-				}
-			}
-			return 0;
-		}		
-	}	
 	public int compareTo(Object o){
 		N n = (N) o;
-		return compareTo(n);		
+		
+		if(getLength() < n.getLength()){
+			return -1;
+		}
+
+		if(getLength() > n.getLength()){
+			return 1;
+		}
+		
+		for(int i = 0; i < getLength(); i++){
+			if(getDigit(i) < n.getDigit(i)){
+				return -1;
+			}
+			if(getDigit(i) > n.getDigit(i)){
+				return 1;
+			}
+		}
+		return 0;
+				
 	}	
 }

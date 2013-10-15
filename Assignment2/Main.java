@@ -53,7 +53,7 @@ public class Main {
 		Identifier id = new Identifier();
 		removeWhitespace(in);
 		if(!nextCharIsLetter(in)){
-			throw new APException("Identifier should start with a letter.");
+			throw new APException("Identifier should start with a letter."); //redundant
 		}
 		id.init(nextChar(in));
 		while (nextCharIsLetter(in) || nextCharIsDigit(in)) {
@@ -62,46 +62,46 @@ public class Main {
 		return id;
 	}
 	
-	private Identifier readNaturalNumber(Scanner in) throws APException{
-		Identifier id = new Identifier();
+	private N readNaturalNumber(Scanner in) throws APException{
+		N number = new N();
 		
 		removeWhitespace(in);
 		if(!nextCharIsDigit(in)){
-			throw new APException("Natural numbers should start with a digit");
+			throw new APException("Natural numbers should start with a digit"); //redundant
 		}
 		
 		if(nextCharIs(in, '0')){
-			id.init(nextChar(in));
+			number.init(nextChar(in));
 			if(!nextCharIsDigit(in)){
-				return id;
+				return number;
 			}
 			throw new APException("Non-zero numbers must not start with '0'.");
 		}
 		
-		id.init(nextChar(in));
+		number.init(nextChar(in));
 		while (nextCharIsDigit(in)) {
-			id.addChar(nextChar(in));
+			number.addDigit(nextChar(in));
 		}
-		return id;
+		return number;
 	}
 	
-	private Set readNumberSequence(Scanner in) throws APException{
+	private Set<N> readNumberSequence(Scanner in) throws APException{
 		//Reads in a bunch of numbers.
 		
-		/*NB: ?Identifiers only consist of digits, not letters.*/
-		
-		Set set = new Set();
+		Set<N> set = new Set<N>();
 		
 		removeWhitespace(in);
 		if(!nextCharIsDigit(in)){
 			return set;
 		}
 		set.addElement(readNaturalNumber(in));
-		
 		removeWhitespace(in);
 		while(nextCharIs(in, ',')) {
 			in.next(); //read away ','
 			removeWhitespace(in);
+			if (!nextCharIsDigit(in)) {
+				throw new APException("Problem reading number sequence: expected a ',' followed by a number.");
+			}
 			set.addElement(readNaturalNumber(in));
 			removeWhitespace(in);
 		}
@@ -109,7 +109,7 @@ public class Main {
 		return set;
 	}
 	
-	private Set readSet(Scanner in) throws APException{
+	private Set<N> readSet(Scanner in) throws APException{
 		//Reads a single set from the program.
 		removeWhitespace(in);
 		if (!nextCharIs(in, '{')){
@@ -118,7 +118,7 @@ public class Main {
 		in.next(); //Read away '{'
 		
 		removeWhitespace(in);
-		Set set = readNumberSequence(in);
+		Set<N> set = readNumberSequence(in);
 		
 		removeWhitespace(in);
 		if (!nextCharIs(in, '}')){
@@ -129,7 +129,7 @@ public class Main {
 		return set;		
 	}
 	
-	private Set readComplexFactor(Scanner in) throws APException{
+	private Set<N> readComplexFactor(Scanner in) throws APException{
 		//Reads a single complex factor from the program.
 		removeWhitespace(in);
 		if (!nextCharIs(in, '(')){
@@ -138,7 +138,7 @@ public class Main {
 		in.next(); //Read away '('.
 		
 		removeWhitespace(in);
-		Set set = readExpression(in);
+		Set<N> set = readExpression(in);
 		
 		removeWhitespace(in);
 		if (!nextCharIs(in, ')')) {
@@ -149,7 +149,7 @@ public class Main {
 		return set;
 	}
 	
-	private Set readFactor(Scanner in) throws APException{
+	private Set<N> readFactor(Scanner in) throws APException{
 		//Reads a single factor from the program.
 		
 		removeWhitespace(in);
@@ -163,7 +163,7 @@ public class Main {
 			/*return set corresponding with id.
 			 *If nonexistent, APException.
 			 */
-			return new Set();
+			return new Set<N>();
 		}
 
 		if(nextCharIs(in, '(')){
@@ -177,13 +177,13 @@ public class Main {
 		throw new APException("Factor must be an identifier, complex factor or set.");
 	}
 	
-	private Set readTerm(Scanner in) throws APException{
+	private Set<N> readTerm(Scanner in) throws APException{
 		//Reads one or more factor(s), separated by a '*'.
 		removeWhitespace(in);
 		if (!in.hasNext()) {
 			throw new APException("Term should not be empty.");
 		}
-		Set set = readFactor(in);
+		Set<N> set = readFactor(in);
 		
 		removeWhitespace(in);
 		while(nextCharIs(in, '*')){
@@ -194,13 +194,13 @@ public class Main {
 		return set;
 	}
 	
-	private Set readExpression(Scanner in) throws APException{
+	private Set<N> readExpression(Scanner in) throws APException{
 		//Reads one or more term(s), separated by '+', '|' or '-' sign.
 		removeWhitespace(in);
 		if (!in.hasNext()) {
 			throw new APException("Expression should not be empty.");
 		}
-		Set set = readTerm(in);
+		Set<N> set = readTerm(in);
 		
 		removeWhitespace(in);
 		while(nextCharIsAdditiveOperator(in)){
@@ -225,13 +225,16 @@ public class Main {
 	private void readAssignment(Scanner in) throws APException{
 		//Reads a single assignment
 		removeWhitespace(in);
+		if(!nextCharIsLetter(in)) {
+			throw new APException("Assignment should start with an identifier"); //redundant
+		}
 		Identifier id = readIdentifier(in);
 		
 		removeWhitespace(in);
 		if(nextCharIs(in, '=')){
 			in.next(); //Read away '='
 			removeWhitespace(in);
-			Set set = readExpression(in);
+			Set<N> set = readExpression(in);
 			if (in.hasNext()) {
 				throw new APException("Problem reading assignment: expected an expression followed by <eoln>");
 			}
@@ -247,7 +250,7 @@ public class Main {
 	
 	private void readStatement(Scanner in) throws APException{
 		//Reads a single statement
-		in.useDelimiter(""); //<-- This is important
+		in.useDelimiter(""); //<--This is important
 		
 		removeWhitespace(in); //ignore spaces
 		
@@ -257,30 +260,48 @@ public class Main {
 		}
 		
 		if(nextCharIs(in, '/')){
-			// Comment
+			//Commentary
 			return;
 		}
 		
 		if(nextCharIs(in, '?')){
-			//Print-statement ('?' + expression
+			//Print-statement ('?' + expression)
 			in.next(); //read away '?'
 			removeWhitespace(in);
-			Set set = readExpression(in);
+			Set<N> set = readExpression(in);
 			
 			removeWhitespace(in);
 			if (in.hasNext()) {
 				throw new APException("Problem reading print statement: expected an expression followed by <eoln>");
 			}
-			/* print set here */
+
+			printSet(set);
+			out.println();
 			
 			return;
 		}
 		
 		if(nextCharIsLetter(in)){
-			// Assignment
+			//Assignment
 			readAssignment(in);
 		} else {
 			throw new APException("Statement must be an assignment, comment or print statement.");
+		}
+	}
+	
+	private void printNumber(N n) {
+		for (int i = 0; i < n.getLength(); i++) {
+			out.print(n.getDigit(i));
+		}
+	}
+	
+	private void printSet(Set<N> set) {
+		Set<N> clone = set.clone();
+		while (clone.getSize() > 0) {
+			N n = clone.someElement();
+			clone.removeElement(n);
+			printNumber(n);
+			out.print(" ");
 		}
 	}
 

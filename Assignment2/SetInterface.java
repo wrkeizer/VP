@@ -5,11 +5,11 @@ package assignment2;
  * @author Floris Golbach & Wisse Keizer
  *
  * @elementen
- * 	Objects of type Identifier.
+ * 	Objects of type E
  * @structuur
  * 	Geen
  * @domein
- * 	0-20 Non-identical Identifiers.
+ * 	All combinations of objects of type E are valid values for a Set
  *
  * @constructor
  * 	Set();
@@ -18,20 +18,8 @@ package assignment2;
  * 		<dt><b>POST:</b><dd> The content of the new object is an empty set.
  * 		</dl>
  *  <br>
- *  Set(Set src);
- * 		<dl>
- * 		<dt><b>PRE:</b><dd> -The newly constructed Set-object contains a copy of the contents of src.
- * 		</dl>
  **/
- public interface SetInterface{
-	 
-	 /**Clones the Set-object.
-	  * @preconditie
-	  * 	-
-	  * @postconditie
-	  * 	A copy of the Set-object has been returned.	 
-	  **/
-	 Set clone();
+ public interface SetInterface<E extends Data> extends Clonable{
 	 
 	/** Initializes the Set-object to be an empty set.
      * @preconditie
@@ -41,24 +29,22 @@ package assignment2;
      **/
     void init ();
 	
-	/** Adds an Identifier to the set.
+	/** Adds an element to the set.
      * @preconditie
      *	    -
      * @postconditie
-     *	    The set contains an Identifier with the same content as id.
-     * @exception
-     * 	    If the set contains more than 20 elements.
+     *	    The set contains an element equal to d.
      **/
-    void addElement(Identifier id) throws ArrayIndexOutOfBoundsException;
+    void addElement(E d);
 
 
-    /** Deletes an Identifier from the set.
+    /** Deletes an element from the set.
      * @preconditie
      *	    -
      * @postconditie
-     *	    There is no element in the set with the same content as id.
+     *	    There is no element in the set equal to d.
      **/
-    void removeElement(Identifier id);
+    void removeElement(E d);
 
 
     /** Returns an element from the set.
@@ -67,7 +53,7 @@ package assignment2;
      * @postconditie
      *	    A copy of one of the elements from the set has been returned.
      **/
-    Identifier someElement();
+    E someElement();
 
 
     /** Returns the number of elements in the set.
@@ -83,34 +69,34 @@ package assignment2;
      * @preconditie
      *	    -
      * @postconditie
-     *	    The new Set contains a copy of all Identifiers present in the own set, but not in v.
+     *	    The new Set contains a copy of all elements present in the own set, but not in v.
      **/     
-    Set difference(Set v);
+    Set<E> difference(Set<E> v);
     
     
     /** Returns a new Set containing the intersection of the own and given set.
      * @preconditie
      *	    -
      * @postconditie
-     * 		The new Set contains a copy of all Identifiers present in both the own set as in v.
+     * 		The new Set contains a copy of all elements present in both the own set as in v.
      **/     
-    Set intersection(Set v);
+    Set<E> intersection(Set<E> v);
     
     
     /** Returns a new Set containing the union of the own and given set.
      * @preconditie
      *	    -
      * @postconditie
-     *	    The new Set contains a copy of all Identifiers present in either the own set or in v.
+     *	    The new Set contains a copy of all elements present in either the own set or in v.
      **/
-    Set union(Set v);
+    Set<E> union(Set<E> v);
     
     
     /** Returns a new Set containing the symmetric difference of the own and given set.
      * @preconditie
      *	    -
      * @postconditie
-     *	    The new Set contains a copy of all Identifiers present in either the own set or in v, but not both.
+     *	    The new Set contains a copy of all elements present in either the own set or in v, but not both.
      **/    
-    Set symmetricDifference(Set v);
+    Set<E> symmetricDifference(Set<E> v);
 }

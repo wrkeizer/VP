@@ -2,7 +2,7 @@ package assignment2;
 
 public class Table<K extends Data, V extends Clonable> implements TableInterface<K, V> {
 	
-	List<KeyValuePair<K,V>> list;
+	private List<KeyValuePair<K,V>> list;
 	
 	Table() {
 		list = new List<KeyValuePair<K,V>>();

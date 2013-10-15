@@ -35,12 +35,17 @@ public class List<E extends Data> implements ListInterface<E> {
 		if (setFirst() == false) { // Insert in empty list
 			first = last = current = new Node<E>((E) d.clone());
 		} else {
-			while(d.compareTo(current.data) < 1) {
+			while(d.compareTo(current.data) == 1) {
 				if (getNext() == false) { // Insert at end of list
 					last = current = new Node<E>((E) d.clone(), last, null);
 					current.prior.next = current;
 					return this;
 				}
+			}
+			if (current == first) { // Insert at beginning of list
+				first = current = new Node<E>((E) d.clone(), null, first);
+				current.next.prior = current;
+				return this;
 			}
 			// Insert before current
 			current = new Node<E>((E) d.clone(), current.prior, current);
@@ -89,7 +94,7 @@ public class List<E extends Data> implements ListInterface<E> {
 					return true;
 				}
 				
-				if(d.compareTo(current.data) == 1){
+				if(d.compareTo(current.data) == -1){
 					//Make current point to the last element < d or first element if first < d.
 					if(!(current == first)){
 						current = current.prior;
@@ -134,9 +139,9 @@ public class List<E extends Data> implements ListInterface<E> {
 		List<E> clone = new List<E>();
 		
 		if(setFirst()){
-			while(getNext()){
-				clone.insert(current.clone().data);
-			}
+			do {
+				clone.insert((E) current.data.clone());
+			} while(getNext());
 		}
 		return clone;
 	}
