@@ -80,7 +80,7 @@ public class Main {
 			}
 			catch(APException e){
 				out.println(e.getMessage());
-				System.exit(1); // This program should quit in case of an error right?
+				System.exit(0); // This program should quit in case of an error right?
 //				e.printStackTrace();
 			}
 		}

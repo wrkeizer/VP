@@ -50,4 +50,22 @@ public interface BinaryTreeInterface<E extends Data>{
 	 * 					FALSE: BinaryTree does not contain a copy of d.
 	 **/
 	boolean contains(E d);
+	
+	/** 
+	 * @preconditie  -	
+	 * @postconditie -	The in the binary search tree stored data have been run through in a 
+	 * 					Monotone non-descending and have been inserted into a 
+	 * 					object of type Iterator in this specific order.
+	 * 					This object of type Iterator has been returned.
+	 **/ 
+	 Iterator ascendingIterator (); //Shouldn't it be Iterator<E>?
+	 
+	 /** 
+	 * @preconditie  -	
+	 * @postconditie -	The in the binary search tree stored data have been run through in a 
+	 * 					Monotone non-ascending and have been inserted into a 
+	 * 					object of type Iterator in this specific order.
+	 * 					This object of type Iterator has been returned.
+	 **/ 
+	 Iterator descendingIterator ();
 }
