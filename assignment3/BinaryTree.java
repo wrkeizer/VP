@@ -3,9 +3,8 @@ package assignment3;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class BinaryTree<E extends Data> extends ArrayList<E> implements BinaryTreeInterface<E>{
-	
-	private static final long serialVersionUID = 1L;	
+public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
+		
 	private BinaryTree<E> root, leftChild, rightChild;
 	E data;
 	
