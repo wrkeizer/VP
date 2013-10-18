@@ -50,6 +50,21 @@ public class Main {
 		return id;
 	}
 	
+	private Identifier toLowerCase(Identifier id){
+		String s = "";
+		for(int i = 0; i  < id.getSize(); i++){
+			s += id.getChar(i);
+		}
+		
+		s = s.toLowerCase();
+		id.init(s.charAt(0));
+		
+		for(int i = 1; i < s.length(); i++){
+			id.addChar(s.charAt(i));
+		}
+		return id;
+	}
+	
 	private void readLine(String line, boolean lowerCase){
 		Scanner lineScanner = new Scanner(line);
 		lineScanner.useDelimiter("");
@@ -63,17 +78,7 @@ public class Main {
 
 				//Converts id to lower case letters if necessary
 				if(lowerCase){
-					String s = "";
-					for(int i = 0; i  < id.getSize(); i++){
-						s += id.getChar(i);
-					}
-					
-					s = s.toLowerCase();
-					id.init(s.charAt(0));
-					
-					for(int i = 1; i < s.length(); i++){
-						id.addChar(s.charAt(i));
-					}
+					id = toLowerCase(id);					
 				}
 				tree.insert(id);
 			}else {
