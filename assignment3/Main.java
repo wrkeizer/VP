@@ -115,13 +115,15 @@ public class Main {
 		boolean lowerCase = false, descending = false;
 		
 		int i = 0;
-		if(args[i].equals("-i")){
-			lowerCase = true;
-			i++;
-		}
-		if(args[i].equals("-d")){
-			descending = true;
-			i++;
+		while(args[i].equals("-i") || args[i].equals("-d")){
+			if(args[i].equals("-i")){		
+				lowerCase = true;
+				i++;
+			}
+			if(args[i].equals("-d")){
+				descending = true;
+				i++;
+			}
 		}
 		
 		for(int j = i; j < args.length; j++){
@@ -129,7 +131,6 @@ public class Main {
 		}
 		
 		printTree(descending);	
-		System.out.println("been here");
 	}
 	
 	void printTree(boolean descending) {
