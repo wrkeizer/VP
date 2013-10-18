@@ -75,21 +75,22 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 	}
 	
 	public Iterator<E> descendingIterator(){
-		if(!(leftChild == null)){
-			Iterator<E> left = leftChild.ascendingIterator();
-			while(left.hasNext()){
-				al.add(left.next());
-			}
-		}
-	
-		al.add(data);
-
 		if(!(rightChild == null)){
-			Iterator<E> right = rightChild.ascendingIterator();
+			Iterator<E> right = rightChild.descendingIterator();
 			while(right.hasNext()){
 				al.add(right.next());
 			}
 		}	
+		
+		al.add(data);
+		
+		if(!(leftChild == null)){
+			Iterator<E> left = leftChild.descendingIterator();
+			while(left.hasNext()){
+				al.add(left.next());
+			}
+		}
+		
 		return al.iterator();	
 	}
 }

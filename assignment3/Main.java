@@ -58,13 +58,17 @@ public class Main {
 			
 			if(nextCharIsLetter(lineScanner)){
 				Identifier id = readWord(lineScanner);
+				
+				//Converts id to lower case letters if necessary
 				if(lowerCase){
 					String s = "";
 					for(int i = 0; i  < id.getSize(); i++){
 						s += id.getChar(i);
 					}
+					
 					s = s.toLowerCase();
 					id.init(s.charAt(0));
+					
 					for(int i = 1; i < s.length(); i++){
 						id.addChar(s.charAt(i));
 					}
@@ -126,22 +130,30 @@ public class Main {
 			iterator = tree.descendingIterator();
 		}else iterator = tree.ascendingIterator();
 		
-		while(iterator.hasNext()){
-			printIdentifier(iterator.next());
+		Identifier id = new Identifier();
+		if(iterator.hasNext()){
+			id = iterator.next();
+		}else {
+			System.out.println("Tree is empty");
+			System.exit(0);
 		}
 		
 		while(iterator.hasNext()) {
-			Identifier id = iterator.next();
-			int counter = 1;
+			Identifier clone = id.clone(),
+						temp = new Identifier();
+			int counter = 1;			
 			
-			
-			while(iterator.hasNext() && id.compareTo(iterator.next()) == 0) {
-				counter++;			
+			while(iterator.hasNext()) {
+				temp = iterator.next();
+				if(clone.compareTo(temp) == 0){
+					counter++;
+				}else break;
 			}			
 			
 			if (counter % 2 == 1) {
-				printIdentifier(id);
+				printIdentifier(clone);
 			}
+			id = temp.clone();
 		}
 	}
 	
