@@ -58,7 +58,7 @@ public interface BinaryTreeInterface<E extends Data>{
 	 * 					object of type Iterator in this specific order.
 	 * 					This object of type Iterator has been returned.
 	 **/ 
-	 Iterator ascendingIterator (); //Shouldn't it be Iterator<E>?
+	 Iterator ascendingIterator (); 
 	 
 	 /** 
 	 * @preconditie  -	

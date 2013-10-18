@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 		
-	private BinaryTree<E> root, leftChild, rightChild;
+	private BinaryTree<E> leftChild, rightChild;
 	E data;
 	
 	BinaryTree(){
@@ -13,7 +13,7 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 	}
 	
 	public BinaryTree<E> init(){
-		root = leftChild = rightChild = null;
+		leftChild = rightChild = null;
 		return this;
 	}
 	
@@ -22,8 +22,16 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 			if(data == null){
 				data = d;
 			}else if(data.compareTo(d) == -1){
+				if(leftChild == null){
+					leftChild = new BinaryTree<E>();
+				}				
 				leftChild.insert(d);
-			}else rightChild.insert(d);
+			}else {
+				if(rightChild == null){
+					rightChild = new BinaryTree<E>();
+				}
+				rightChild.insert(d);
+			}
 		}else data = d;
 		
 		return this;
@@ -34,8 +42,8 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 			if(data == null){
 				data = d;
 			}else if(data.compareTo(d) == -1){
-				leftChild.insert(d);
-			}else rightChild.insert(d);
+				leftChild.remove(d);
+			}else rightChild.remove(d);
 		}
 		
 		return this;
