@@ -108,12 +108,12 @@ public class Main {
 		boolean lowerCase = false, descending = false;
 		
 		int i = 0;
-		while(args[i].equals("-i") || args[i].equals("-d")){
-			if(args[i].equals("-i")){
-				lowerCase = true;
-			}else if(args[i].equals("-d")){
-				descending = true;
-			}
+		if(args[i].equals("-i")){
+			lowerCase = true;
+			i++;
+		}
+		if(args[i].equals("-d")){
+			descending = true;
 			i++;
 		}
 		
