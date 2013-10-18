@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import assignment2.N;
-
 public class Main {
 	
 	BinaryTree<Identifier> tree;
@@ -51,28 +49,6 @@ public class Main {
 		return id;
 	}
 	
-	private boolean isOption(String firstArg, String secondArg, String option) throws APException{
-		if(firstArg.equals(secondArg) && firstArg.equals(option)){
-			throw new APException("Option " + option + " has been called multiple times");			
-		}
-		
-		if(firstArg.equals(option)){
-			return true;
-		}else if(secondArg.equals(option)){
-			return true;
-		}
-		
-		return false;		
-	}
-	
-	private int determineStart(boolean lowerCase, boolean descending){
-		if(!lowerCase && !descending){
-			return 0;
-		}else if(lowerCase ^ descending){
-			return 1;
-		}else return 2;
-	}
-	
 	private void readLine(String line, boolean lowerCase){
 		Scanner lineScanner = new Scanner(line);
 		lineScanner.useDelimiter("");
@@ -89,7 +65,7 @@ public class Main {
 		}
 	}
 	
-	private void readFile(String file, boolean lowerCase) throws APException{		
+	private void readFile(String file, boolean lowerCase){		
 		BufferedReader br = null;
 		String currentLine;
 		try{
@@ -115,51 +91,46 @@ public class Main {
 	private void start(String[] args){
 		boolean lowerCase = false, descending = false;	
 		
-		/*
-		 * TODO: Wisse kom eens van je luie reet
-		 */
-		try{
-			lowerCase = isOption(args[0], args[1], "-i");
-			descending = isOption(args[0], args[1], "-d");
-		}
-		catch(APException e){
-			out.println(e.getMessage());
-			System.exit(0); 
-		}
-		
-		int startOfFiles = determineStart(lowerCase, descending);
-		for(int i = startOfFiles; i < args.length; i++){
-			try{
-				readFile(args[i], lowerCase);
+		int i = 0;
+		while(args[i].equals("-i") || args[i].equals("-d")){
+			if(args[i].equals("-i")){
+				lowerCase = true;
+			}else if(args[i].equals("-d")){
+				descending = true;
 			}
-			catch(APException e){
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-				System.exit(0);
-			}
+			i++;
 		}
 		
-		printTree(!descending);
+		for(int j = i; j < args.length; j++){
+			readFile(args[i], lowerCase);
+		}
 		
+		printTree(descending);		
 	}
 	
 	void printTree(boolean descending) {
-		Iterator<Identifier> it;		
-		if(!descending){
-			it = tree.descendingIterator();
-		}else it = tree.ascendingIterator();
+		Iterator<Identifier> iterator;		
+		if(descending){
+			iterator = tree.descendingIterator();
+		}else iterator = tree.ascendingIterator();
 		
-		while(it.hasNext()) {
-			Identifier id = it.next();
-			int counter = 1;
-			while(it.hasNext() && id.compareTo(it.next()) == 0) {
-				counter++;
-			}
-			if (counter % 2 == 1) {
-				printIdentifier(it.next());
-				System.out.println();
-			}
+		while(iterator.hasNext()){
+			printIdentifier(iterator.next());
+			System.out.println();
 		}
+		
+//		while(iterator.hasNext()) {
+//			Identifier id = iterator.next();
+//			iterator.remove();
+//			int counter = 1;
+//			while(iterator.hasNext() && id.compareTo(iterator.next()) == 0) {
+//				counter++;
+//			}
+//			if (counter % 2 == 1) {
+//				printIdentifier(id);
+//				System.out.println();
+//			}
+//		}
 	}
 	
 

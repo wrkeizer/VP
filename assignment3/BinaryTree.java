@@ -21,33 +21,20 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 	
 	public BinaryTree<E> insert(E d){
 		if(data == null){
-			data = d;
+			data = (E)d.clone();
 		}else if(data.compareTo(d) > 0){
 			if(leftChild == null){
 				leftChild = new BinaryTree<E>();
 			}				
-			leftChild.insert(d);
+			leftChild.insert((E)d.clone());
 		}else {
 			if(rightChild == null){
 				rightChild = new BinaryTree<E>();
 			}
-			rightChild.insert(d);
+			rightChild.insert((E)d.clone());
 		}
 				
 		return this;
-	}
-	
-	public BinaryTree<E> remove(E d){
-		if(contains(d)){
-			if(data.compareTo(d) == 0){
-				data = null;
-			}else if(data.compareTo(d) == -1){
-				leftChild.remove(d);
-			}else rightChild.remove(d);
-		}
-		
-		return this;
-		//N.B.: does not yet restructure tree after deletion!
 	}
 	
 	public boolean contains(E d){
@@ -68,43 +55,45 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 		}
 	}
 	
-	public Iterator<E> ascendingIterator(){
+	public ArrayList<E> ascendingArray(){
 		if(!(leftChild == null)){
-			Iterator<E> left = leftChild.ascendingIterator();
-			while(left.hasNext()){
-				al.add(left.next());
+			for(int i = 0; i < leftChild.ascendingArray().size(); i++){
+				al.add(leftChild.ascendingArray().get(i));
+			}
+		}
+		
+		al.add(data);
+
+		if(!(rightChild == null)){
+			for(int i = 0; i < rightChild.ascendingArray().size(); i++){
+				al.add(rightChild.ascendingArray().get(i));
+			}
+		}
+		return al;
+	}
+	
+	public ArrayList<E> descendingArray(){
+		if(!(rightChild == null)){
+			for(int i = 0; i < rightChild.ascendingArray().size(); i++){
+				al.add(rightChild.ascendingArray().get(i));
 			}
 		}
 		
 		al.add(data);
 		
-		if(!(rightChild == null)){
-			Iterator<E> right = rightChild.ascendingIterator();
-			while(right.hasNext()){
-				al.add(right.next());
+		if(!(leftChild == null)){
+			for(int i = 0; i < leftChild.ascendingArray().size(); i++){
+				al.add(leftChild.ascendingArray().get(i));
 			}
 		}
-		
-		return al.iterator();		
+		return al;
+	}
+	
+	public Iterator<E> ascendingIterator(){
+		return ascendingArray().iterator();		
 	}
 	
 	public Iterator<E> descendingIterator(){
-		if(!(rightChild == null)){
-			Iterator<E> right = rightChild.descendingIterator();
-			while(right.hasNext()){
-				al.add(right.next());
-			}
-		}
-		
-		al.add(data);
-		
-		if(!(leftChild == null)){
-			Iterator<E> left = leftChild.descendingIterator();
-			while(left.hasNext()){
-				al.add(left.next());
-			}
-		}
-				
-		return al.iterator();	
+		return descendingArray().iterator();	
 	}
 }

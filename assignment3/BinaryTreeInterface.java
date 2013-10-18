@@ -39,14 +39,6 @@ public interface BinaryTreeInterface<E extends Data>{
 	BinaryTree<E> insert(E d);
 	
 	/**
-	 * @preconditie  -	The tree is not empty.
-	 * @postconditie -	Data d is not present in BinaryTree-POST.
-	 * 					BinaryTree-POST has been returned.
-	 * 					
-	 **/
-	BinaryTree<E> remove(E d);
-	
-	/**
 	 * @preconditie  -	
 	 * @postconditie -	TRUE: BinaryTree contains a copy of d.
 	 * 					FALSE: BinaryTree does not contain a copy of d.
