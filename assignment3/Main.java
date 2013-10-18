@@ -102,7 +102,7 @@ public class Main {
 		}
 		
 		for(int j = i; j < args.length; j++){
-			readFile(args[i], lowerCase);
+			readFile(args[j], lowerCase);
 		}
 		
 		printTree(descending);		
@@ -113,24 +113,23 @@ public class Main {
 		if(descending){
 			iterator = tree.descendingIterator();
 		}else iterator = tree.ascendingIterator();
-		
-		while(iterator.hasNext()){
-			printIdentifier(iterator.next());
-			System.out.println();
-		}
-		
-//		while(iterator.hasNext()) {
-//			Identifier id = iterator.next();
-//			iterator.remove();
-//			int counter = 1;
-//			while(iterator.hasNext() && id.compareTo(iterator.next()) == 0) {
-//				counter++;
-//			}
-//			if (counter % 2 == 1) {
-//				printIdentifier(id);
-//				System.out.println();
-//			}
+//		
+//		while(iterator.hasNext()){
+//			printIdentifier(iterator.next());
+//			System.out.println();
 //		}
+		
+		while(iterator.hasNext()) {
+			Identifier id = iterator.next();
+			iterator.remove();
+			int counter = 1;
+			while(iterator.hasNext() && id.compareTo(iterator.next()) == 0) {
+				counter++;
+			}
+			if (counter % 2 == 1) {
+				printIdentifier(id);
+			}
+		}
 	}
 	
 
@@ -138,6 +137,7 @@ public class Main {
 		for (int i = 0; i < id.getSize(); i++) {
 			out.print(id.getChar(i));
 		}
+		System.out.println();
 	}
 	
 	public static void main(String[] args) {
