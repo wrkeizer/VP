@@ -55,45 +55,41 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 		}
 	}
 	
-	public ArrayList<E> ascendingArray(){
+	public Iterator<E> ascendingIterator(){
 		if(!(leftChild == null)){
-			for(int i = 0; i < leftChild.ascendingArray().size(); i++){
-				al.add(leftChild.ascendingArray().get(i));
+			Iterator<E> left = leftChild.ascendingIterator();
+			while(left.hasNext()){
+				al.add(left.next());
 			}
 		}
-		
+	
 		al.add(data);
 
 		if(!(rightChild == null)){
-			for(int i = 0; i < rightChild.ascendingArray().size(); i++){
-				al.add(rightChild.ascendingArray().get(i));
+			Iterator<E> right = rightChild.ascendingIterator();
+			while(right.hasNext()){
+				al.add(right.next());
 			}
-		}
-		return al;
-	}
-	
-	public ArrayList<E> descendingArray(){
-		if(!(rightChild == null)){
-			for(int i = 0; i < rightChild.ascendingArray().size(); i++){
-				al.add(rightChild.ascendingArray().get(i));
-			}
-		}
-		
-		al.add(data);
-		
-		if(!(leftChild == null)){
-			for(int i = 0; i < leftChild.ascendingArray().size(); i++){
-				al.add(leftChild.ascendingArray().get(i));
-			}
-		}
-		return al;
-	}
-	
-	public Iterator<E> ascendingIterator(){
-		return ascendingArray().iterator();		
+		}	
+		return al.iterator();	
 	}
 	
 	public Iterator<E> descendingIterator(){
-		return descendingArray().iterator();	
+		if(!(leftChild == null)){
+			Iterator<E> left = leftChild.ascendingIterator();
+			while(left.hasNext()){
+				al.add(left.next());
+			}
+		}
+	
+		al.add(data);
+
+		if(!(rightChild == null)){
+			Iterator<E> right = rightChild.ascendingIterator();
+			while(right.hasNext()){
+				al.add(right.next());
+			}
+		}	
+		return al.iterator();	
 	}
 }

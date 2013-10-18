@@ -57,7 +57,19 @@ public class Main {
 		while(lineScanner.hasNext()){
 			
 			if(nextCharIsLetter(lineScanner)){
-				tree.insert(readWord(lineScanner));
+				Identifier id = readWord(lineScanner);
+				if(lowerCase){
+					String s = "";
+					for(int i = 0; i  < id.getSize(); i++){
+						s += id.getChar(i);
+					}
+					s = s.toLowerCase();
+					id.init(s.charAt(0));
+					for(int i = 1; i < s.length(); i++){
+						id.addChar(s.charAt(i));
+					}
+				}
+				tree.insert(id);
 			}else {
 				readWord(lineScanner); //Read away non-identifier.
 			}			
@@ -89,7 +101,7 @@ public class Main {
 	}
 	
 	private void start(String[] args){
-		boolean lowerCase = false, descending = false;	
+		boolean lowerCase = false, descending = false;
 		
 		int i = 0;
 		while(args[i].equals("-i") || args[i].equals("-d")){
@@ -113,19 +125,20 @@ public class Main {
 		if(descending){
 			iterator = tree.descendingIterator();
 		}else iterator = tree.ascendingIterator();
-//		
-//		while(iterator.hasNext()){
-//			printIdentifier(iterator.next());
-//			System.out.println();
-//		}
+		
+		while(iterator.hasNext()){
+			printIdentifier(iterator.next());
+		}
 		
 		while(iterator.hasNext()) {
 			Identifier id = iterator.next();
-			iterator.remove();
 			int counter = 1;
+			
+			
 			while(iterator.hasNext() && id.compareTo(iterator.next()) == 0) {
-				counter++;
-			}
+				counter++;			
+			}			
+			
 			if (counter % 2 == 1) {
 				printIdentifier(id);
 			}
