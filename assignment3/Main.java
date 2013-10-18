@@ -6,8 +6,9 @@ import java.io.PrintStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.regex.Pattern;
 import java.util.Scanner;
+
+import assignment2.N;
 
 public class Main {
 	
@@ -24,7 +25,7 @@ public class Main {
 	}
 	
 	private void removeSeparators(Scanner in){
-		while(nextCharIsSeparator(in)){
+		while(in.hasNext() && nextCharIsSeparator(in)){
 			in.next(); // Read away separator
 		}
 	}
@@ -38,7 +39,7 @@ public class Main {
 	}
 	
 	private boolean nextCharIsSeparator(Scanner in){
-		return !(nextCharIsLetter(in) || nextCharIsDigit(in));
+		return !(nextCharIsLetter(in) || nextCharIsDigit(in)) && in.hasNext();
 	}
 	
 	private Identifier readWord(Scanner in){
@@ -74,14 +75,17 @@ public class Main {
 	
 	private void readLine(String line, boolean lowerCase){
 		Scanner lineScanner = new Scanner(line);
+		lineScanner.useDelimiter("");
+		
+		removeSeparators(lineScanner);
 		while(lineScanner.hasNext()){
-			removeSeparators(lineScanner);
 			
 			if(nextCharIsLetter(lineScanner)){
 				tree.insert(readWord(lineScanner));
 			}else {
 				readWord(lineScanner); //Read away non-identifier.
 			}			
+			removeSeparators(lineScanner);
 		}
 	}
 	
@@ -92,7 +96,6 @@ public class Main {
 			br = new BufferedReader(new FileReader(file));
 		}
 		catch(FileNotFoundException e){
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 			System.exit(0);
 		}
@@ -104,15 +107,13 @@ public class Main {
 			br.close();
 		}
 		catch (IOException e){
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 			System.exit(0);
 		}
 	}
 	
 	private void start(String[] args){
-		boolean lowerCase = false, descending = false;
-		
+		boolean lowerCase = false, descending = false;	
 		
 		/*
 		 * TODO: Wisse kom eens van je luie reet
@@ -132,18 +133,40 @@ public class Main {
 				readFile(args[i], lowerCase);
 			}
 			catch(APException e){
-				out.println(e.getMessage());
+				System.out.println(e.getMessage());
 				e.printStackTrace();
 				System.exit(0);
 			}
 		}
 		
+		printTree(!descending);
+		
+	}
+	
+	void printTree(boolean descending) {
 		Iterator<Identifier> it;		
-		if(descending){
+		if(!descending){
 			it = tree.descendingIterator();
 		}else it = tree.ascendingIterator();
 		
-		//Check for oneven & print
+		while(it.hasNext()) {
+			Identifier id = it.next();
+			int counter = 1;
+			while(it.hasNext() && id.compareTo(it.next()) == 0) {
+				counter++;
+			}
+			if (counter % 2 == 1) {
+				printIdentifier(it.next());
+				System.out.println();
+			}
+		}
+	}
+	
+
+	private void printIdentifier(Identifier id) {
+		for (int i = 0; i < id.getSize(); i++) {
+			out.print(id.getChar(i));
+		}
 	}
 	
 	public static void main(String[] args) {

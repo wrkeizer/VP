@@ -19,34 +19,28 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 		return this;
 	}
 	
-	public boolean isEmpty(){
-		return data == null;
-	}
-	
 	public BinaryTree<E> insert(E d){
-		if(contains(d)){
-			if(data == null){
-				data = d;
-			}else if(data.compareTo(d) == -1){
-				if(leftChild == null){
-					leftChild = new BinaryTree<E>();
-				}				
-				leftChild.insert(d);
-			}else {
-				if(rightChild == null){
-					rightChild = new BinaryTree<E>();
-				}
-				rightChild.insert(d);
+		if(data == null){
+			data = d;
+		}else if(data.compareTo(d) > 0){
+			if(leftChild == null){
+				leftChild = new BinaryTree<E>();
+			}				
+			leftChild.insert(d);
+		}else {
+			if(rightChild == null){
+				rightChild = new BinaryTree<E>();
 			}
-		}else data = d;
-		
+			rightChild.insert(d);
+		}
+				
 		return this;
 	}
 	
 	public BinaryTree<E> remove(E d){
 		if(contains(d)){
-			if(data == null){
-				data = d;
+			if(data.compareTo(d) == 0){
+				data = null;
 			}else if(data.compareTo(d) == -1){
 				leftChild.remove(d);
 			}else rightChild.remove(d);
@@ -57,12 +51,26 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 	}
 	
 	public boolean contains(E d){
-		return data == d || leftChild.contains(d) || rightChild.contains(d);
+		if(data == null){
+			return false;
+		}
+		if(data.compareTo(d) == 0){
+			return true;
+		}if(data.compareTo(d) > 0){
+			if(leftChild == null){
+				return false;
+			}
+			return leftChild.contains(d);
+		}else{
+			if(rightChild == null){
+				return false;
+			}return rightChild.contains(d);		
+		}
 	}
 	
 	public Iterator<E> ascendingIterator(){
-		if(!leftChild.isEmpty()){
-			Iterator<E> left = leftChild.descendingIterator();
+		if(!(leftChild == null)){
+			Iterator<E> left = leftChild.ascendingIterator();
 			while(left.hasNext()){
 				al.add(left.next());
 			}
@@ -70,8 +78,8 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 		
 		al.add(data);
 		
-		if(!rightChild.isEmpty()){
-			Iterator<E> right = rightChild.descendingIterator();
+		if(!(rightChild == null)){
+			Iterator<E> right = rightChild.ascendingIterator();
 			while(right.hasNext()){
 				al.add(right.next());
 			}
@@ -81,7 +89,7 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 	}
 	
 	public Iterator<E> descendingIterator(){
-		if(!rightChild.isEmpty()){
+		if(!(rightChild == null)){
 			Iterator<E> right = rightChild.descendingIterator();
 			while(right.hasNext()){
 				al.add(right.next());
@@ -90,7 +98,7 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E>{
 		
 		al.add(data);
 		
-		if(!leftChild.isEmpty()){
+		if(!(leftChild == null)){
 			Iterator<E> left = leftChild.descendingIterator();
 			while(left.hasNext()){
 				al.add(left.next());
