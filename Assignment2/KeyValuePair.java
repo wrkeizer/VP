@@ -5,9 +5,6 @@ public class KeyValuePair<K extends Data, V extends Clonable> implements Data {
 	private K k;
 	private V v;
 	
-	//Identifier
-	//Set?
-	
 	KeyValuePair(K k, V v) {
 		this.k = k;
 		this.v = v;

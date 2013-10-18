@@ -24,23 +24,23 @@ package assignment2;
 
 public interface NInterface extends Data{
 	
-	/** @preconditie  - c is valid.
-	 *	@postconditie - The N object is initialized to contain a placeholder value and has been returned.
+	/** @preconditie  - c is a number 1-9.
+	 *	@postconditie - The N object is initialized to contain an initial digit c.
 	 */
 	public N init(char c);
 	
-	/** @preconditie  - c is valid.
-	 *	@postconditie - c has been added.
+	/** @preconditie  - c is a digit 0-9.
+	 *	@postconditie - c has been added at the end of the number.
 	 *		
 	 */
 	public void addDigit(char c);
 	
-	/** @preconditie  -
+	/** @preconditie  - 0 < index < getLength()
 	 *	@postconditie - The character at index index has been returned.
 	 */
 	public char getDigit(int index);
 	
-	/** @preconditie  -
+	/** @preconditie  - 
 	 *	@postconditie - The numbers of characters has been returned.
 	 */
 	public int getLength();

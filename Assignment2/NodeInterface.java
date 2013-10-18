@@ -7,9 +7,9 @@ package assignment2;
 * @elementen
 * 	Objects of type E.
 * @structuur
-* 	Linear linked with prior and next Node object.
+* 	None.
 * @domein
-* 	E extends Data.
+* 	All elements of type E are valid data for a node. There may also be references to a prior and next node of the same type.
 *
 * @constructor
 * 	Node(E d);
@@ -31,7 +31,7 @@ public interface NodeInterface<E extends Data>{
      * @preconditie
      *	    -
      * @postconditie
-     *	    A copy of the Node object is returned.
+     *	    A deep copy of the Node object is returned.
      **/
 	public Node<E> clone();
 }

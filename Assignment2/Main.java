@@ -56,7 +56,7 @@ public class Main {
 		Identifier id = new Identifier();
 		removeWhitespace(in);
 		if(!nextCharIsLetter(in)){
-			throw new APException("Identifier should start with a letter."); //redundant
+			throw new APException("Identifier should start with a letter."); //wrong invocation
 		}
 		id.init(nextChar(in));
 		while (nextCharIsLetter(in) || nextCharIsDigit(in)) {
@@ -70,7 +70,7 @@ public class Main {
 		
 		removeWhitespace(in);
 		if(!nextCharIsDigit(in)){
-			throw new APException("Natural numbers should start with a digit"); //redundant
+			throw new APException("Natural numbers should start with a digit"); //wrong invocation
 		}
 		
 		if(nextCharIs(in, '0')){
@@ -230,7 +230,7 @@ public class Main {
 		//Reads a single assignment
 		removeWhitespace(in);
 		if(!nextCharIsLetter(in)) {
-			throw new APException("Assignment should start with an identifier"); //redundant
+			throw new APException("Assignment should start with an identifier"); //wrong invocation
 		}
 		Identifier id = readIdentifier(in);
 		

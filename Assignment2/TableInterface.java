@@ -1,7 +1,7 @@
 package assignment2;
 
 /**	@elementen : key-value pairs
- *	@structuur : none
+ *	@structuur : ordered list of key-value elements sorted by key
  *	@domein : 	 All sets of key-value pairs with unique keys are valid values for a table.
  *	@constructor - Table ();
  *	<dl>

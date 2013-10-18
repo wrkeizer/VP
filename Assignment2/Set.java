@@ -32,7 +32,7 @@ public class Set<E extends Data> implements SetInterface<E>{
     }
     
     public E someElement() {
-    	list.setFirst(); //remove for uncontrolled order
+    	list.setFirst(); //doesn't matter for unstructured sets but our implementation uses ordered lists so yeah..
     	return list.retrieve();
     }
     

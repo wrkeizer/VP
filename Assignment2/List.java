@@ -28,7 +28,8 @@ public class List<E extends Data> implements ListInterface<E> {
 			}while(getNext());
 			
 			return counter;
-		}else return 0;
+		}
+		return 0;
 	}
 	
 	public List<E> insert(E d){
@@ -84,27 +85,25 @@ public class List<E extends Data> implements ListInterface<E> {
 	}
 	
 	public boolean find(E d) {
-		if(isEmpty()){
+		if(!setFirst()){
 			return false;
 		}
 		
-		if(setFirst()){
-			do{				
-				if(d.compareTo(current.data) == 0){
-					return true;
+		do{				
+			if(d.compareTo(current.data) == 0){
+				return true;
+			}
+			
+			if(d.compareTo(current.data) == -1){
+				//d < current.data, point current to previous node if possible
+				if(!(current == first)){
+					current = current.prior;
 				}
-				
-				if(d.compareTo(current.data) == -1){
-					//Make current point to the last element < d or first element if first < d.
-					if(!(current == first)){
-						current = current.prior;
-					}
-					return false;
-				}
-			}while(getNext());
-			//If the method gets to this point, current < d and current should already be pointing to last.
-			return false;
-		}else return false;
+				return false;
+			}
+		}while(getNext());
+		//d > last.data, current points to last
+		return false;
 	}
 	
 	public boolean setFirst(){
