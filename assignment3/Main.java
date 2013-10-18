@@ -37,12 +37,13 @@ public class Main {
 	}
 	
 	private boolean nextCharIsSeparator(Scanner in){
-		return !(nextCharIsLetter(in) || nextCharIsDigit(in)) && in.hasNext();
+		return !(nextCharIsLetter(in) || nextCharIsDigit(in));
 	}
 	
 	private Identifier readWord(Scanner in){
 		Identifier id = new Identifier();
 		id.init(nextChar(in));
+		
 		while (!nextCharIsSeparator(in)) {
 			id.addChar(nextChar(in));
 		}
@@ -54,11 +55,12 @@ public class Main {
 		lineScanner.useDelimiter("");
 		
 		removeSeparators(lineScanner);
+		
 		while(lineScanner.hasNext()){
 			
 			if(nextCharIsLetter(lineScanner)){
 				Identifier id = readWord(lineScanner);
-				
+
 				//Converts id to lower case letters if necessary
 				if(lowerCase){
 					String s = "";
@@ -76,7 +78,7 @@ public class Main {
 				tree.insert(id);
 			}else {
 				readWord(lineScanner); //Read away non-identifier.
-			}			
+			}	
 			removeSeparators(lineScanner);
 		}
 	}
@@ -121,7 +123,8 @@ public class Main {
 			readFile(args[j], lowerCase);
 		}
 		
-		printTree(descending);		
+		printTree(descending);	
+		System.out.println("been here");
 	}
 	
 	void printTree(boolean descending) {
