@@ -8,17 +8,9 @@ public class Identifier implements IdentifierInterface{
 		name = new StringBuffer();
 		name.append('x');
 	}
-	
-	public Identifier(Identifier src) {
-		name = new StringBuffer();
-		name.append(src.getChar(0));
-		for (int i = 1; i < src.getSize(); i++) {
-			name.append(src.getChar(i));
-		}
-	}
 
     public void init (char c) {
-    	name.delete(0, Integer.MAX_VALUE);
+    	name.delete(0, getSize());
     	name.append(c);
     }
 
@@ -34,17 +26,20 @@ public class Identifier implements IdentifierInterface{
     	return name.length();
     }
     
-    public boolean equals(Identifier id){
-    	if (id.getSize() != this.getSize()) {
-    		return false;
-    	}
-    	
-		for (int i = 0; i < this.getSize(); i++) {
-			if (id.getChar(i) != this.getChar(i)) {
-				return false;
-			}
+    public Identifier clone() {
+
+		Identifier clone = new Identifier();
+		clone.init(getChar(0));
+		
+		for(int i = 1; i < getSize(); i++){
+			clone.addChar(getChar(i));
 		}
 		
-		return true;
-	}    
+		return clone;
+    }
+    
+	public int compareTo(Object o) {
+		Identifier id = (Identifier) o;
+		return name.toString().compareTo(id.name.toString());
+	}
 }

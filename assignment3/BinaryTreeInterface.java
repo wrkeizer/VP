@@ -1,5 +1,7 @@
 package assignment3;
 
+import java.util.Iterator;
+
 /** ADT for the class BinaryTree.
  *
  * @author Floris Golbach & Wisse Keizer
@@ -58,7 +60,7 @@ public interface BinaryTreeInterface<E extends Data>{
 	 * 					object of type Iterator in this specific order.
 	 * 					This object of type Iterator has been returned.
 	 **/ 
-	 Iterator ascendingIterator (); 
+	 Iterator<E> ascendingIterator (); 
 	 
 	 /** 
 	 * @preconditie  -	
@@ -67,5 +69,5 @@ public interface BinaryTreeInterface<E extends Data>{
 	 * 					object of type Iterator in this specific order.
 	 * 					This object of type Iterator has been returned.
 	 **/ 
-	 Iterator descendingIterator ();
+	 Iterator<E> descendingIterator ();
 }

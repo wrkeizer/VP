@@ -3,17 +3,19 @@ package assignment3;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.Scanner;
 
 public class Main {
 	
-	Scanner in;
+	BinaryTree<Identifier> tree;
 	PrintStream out;
 	
 	Main(){
-		in = new Scanner(System.in);
-		in.useDelimiter("");
+		tree = new BinaryTree<Identifier>();
 		out = new PrintStream(System.out);
 	}
 	
@@ -70,59 +72,81 @@ public class Main {
 		}else return 2;
 	}
 	
-	private BinaryTree<Identifier> readLine(BinaryTree<Identifier> tree, String line, boolean lowerCase, boolean descending){
+	private void readLine(String line, boolean lowerCase){
 		Scanner lineScanner = new Scanner(line);
 		while(lineScanner.hasNext()){
 			removeSeparators(lineScanner);
 			
 			if(nextCharIsLetter(lineScanner)){
-				tree.add(readWord(lineScanner));
+				tree.insert(readWord(lineScanner));
 			}else {
 				readWord(lineScanner); //Read away non-identifier.
 			}			
 		}
-		return tree;
 	}
 	
-	private BinaryTree<Identifier> readFile(String file, boolean lowerCase, boolean descending) throws APException{
-		BinaryTree<Identifier> tree = new BinaryTree<Identifier>();		
-		BufferedReader br = new BufferedReader(new FileReader(file));
+	private void readFile(String file, boolean lowerCase) throws APException{		
+		BufferedReader br = null;
 		String currentLine;
-
-		while ((currentLine = br.readLine()) != null) {
-			tree = readLine(tree, currentLine, lowerCase, descending);
+		try{
+			br = new BufferedReader(new FileReader(file));
 		}
-		return tree;
+		catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			System.exit(0);
+		}
+
+		try{
+			while ((currentLine = br.readLine()) != null) {
+				readLine(currentLine, lowerCase);
+			}
+			br.close();
+		}
+		catch (IOException e){
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			System.exit(0);
+		}
 	}
 	
 	private void start(String[] args){
-		boolean lowerCase, descending = false;
+		boolean lowerCase = false, descending = false;
+		
+		
+		/*
+		 * TODO: Wisse kom eens van je luie reet
+		 */
 		try{
 			lowerCase = isOption(args[0], args[1], "-i");
 			descending = isOption(args[0], args[1], "-d");
 		}
 		catch(APException e){
 			out.println(e.getMessage());
-			System.exit(0); // This program should quit in case of an error right?
+			System.exit(0); 
 		}
 		
 		int startOfFiles = determineStart(lowerCase, descending);
-		
-		BinaryTree<Identifier>[] files = new BinaryTree<Identifier>[args.length-startOfFiles];
 		for(int i = startOfFiles; i < args.length; i++){
 			try{
-				files[i] = readFile(args[i], lowerCase, descending);
+				readFile(args[i], lowerCase);
 			}
 			catch(APException e){
 				out.println(e.getMessage());
-				System.exit(0); // This program should quit in case of an error right?
-//				e.printStackTrace();
+				e.printStackTrace();
+				System.exit(0);
 			}
 		}
+		
+		Iterator<Identifier> it;		
+		if(descending){
+			it = tree.descendingIterator();
+		}else it = tree.ascendingIterator();
+		
+		//Check for oneven & print
 	}
 	
 	public static void main(String[] args) {
 		new Main().start(args);
 	}
-
 }
