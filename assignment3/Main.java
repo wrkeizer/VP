@@ -12,10 +12,13 @@ public class Main {
 	
 	BinaryTree<Identifier> tree;
 	PrintStream out;
+	boolean lowerCase,
+			descending;
 	
 	Main(){
 		tree = new BinaryTree<Identifier>();
 		out = new PrintStream(System.out);
+		lowerCase = descending = false;
 	}
 	
 	private char nextChar(Scanner in){
@@ -65,7 +68,7 @@ public class Main {
 		return id;
 	}
 	
-	private void readLine(String line, boolean lowerCase){
+	private void readLine(String line){
 		Scanner lineScanner = new Scanner(line);
 		lineScanner.useDelimiter("");
 		
@@ -88,7 +91,7 @@ public class Main {
 		}
 	}
 	
-	private void readFile(String file, boolean lowerCase){		
+	private void readFile(String file){		
 		BufferedReader br = null;
 		String currentLine;
 		try{
@@ -101,7 +104,7 @@ public class Main {
 
 		try{
 			while ((currentLine = br.readLine()) != null) {
-				readLine(currentLine, lowerCase);
+				readLine(currentLine);
 			}
 			br.close();
 		}
@@ -111,10 +114,13 @@ public class Main {
 		}
 	}
 	
-	private void start(String[] args){
-		boolean lowerCase = false, descending = false;
-		
+	private int setBooleans(String[] args){
 		int i = 0;
+		
+		if(i == args.length){
+			System.out.println("No arguments given. Program terminated.");
+			System.exit(0);
+		}		
 		while(args[i].equals("-i") || args[i].equals("-d")){
 			if(args[i].equals("-i")){		
 				lowerCase = true;
@@ -124,16 +130,25 @@ public class Main {
 				descending = true;
 				i++;
 			}
+			if(i == args.length){
+				System.out.println("No file arguments given. Program terminated.");
+				System.exit(0);
+			}
 		}
-		
-		for(int j = i; j < args.length; j++){
-			readFile(args[j], lowerCase);
-		}
-		
-		printTree(descending);	
+		return i;
 	}
 	
-	void printTree(boolean descending) {
+	private void start(String[] args){	
+		int start = setBooleans(args);
+		
+		for(int i = start; i < args.length; i++){
+			readFile(args[i]);
+		}
+		
+		printTree();	
+	}
+	
+	void printTree() {
 		Iterator<Identifier> iterator;		
 		if(descending){
 			iterator = tree.descendingIterator();
@@ -143,7 +158,7 @@ public class Main {
 		if(iterator.hasNext()){
 			id = iterator.next();
 		}else {
-			System.out.println("Tree is empty");
+			System.out.println("Tree is empty. Program terminated");
 			System.exit(0);
 		}
 		
