@@ -154,31 +154,38 @@ public class Main {
 			iterator = tree.descendingIterator();
 		}else iterator = tree.ascendingIterator();
 		
-		Identifier id = new Identifier();
+		Identifier current = new Identifier(),
+					next = new Identifier(),
+					check = new Identifier();
+		int counter = 1;
+		
 		if(iterator.hasNext()){
-			id = iterator.next();
+			current = iterator.next();
 		}else {
 			System.out.println("Tree is empty. Program terminated");
 			System.exit(0);
 		}
 		
 		while(iterator.hasNext()) {
-			Identifier clone = id.clone(),
-						temp = new Identifier();
-			int counter = 1;			
-			
 			while(iterator.hasNext()) {
-				temp = iterator.next();
-				if(clone.compareTo(temp) == 0){
+				next = iterator.next();
+				if(current.compareTo(next) == 0){
 					counter++;
 				}else break;
-			}			
+			}	
 			
 			if (counter % 2 == 1) {
-				printIdentifier(clone);
+				printIdentifier(current);
 			}
-			id = temp.clone();
+			
+			check = current.clone();
+			current = next.clone();
+			counter = 1;		
 		}
+		
+		if (counter % 2 == 1 && !(check.compareTo(current) == 0)) {
+			printIdentifier(current);
+		}		
 	}
 	
 
